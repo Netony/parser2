@@ -6,7 +6,7 @@
 #    By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/16 09:00:32 by dajeon            #+#    #+#              #
-#    Updated: 2023/08/11 14:13:23 by dajeon           ###   ########.fr        #
+#    Updated: 2023/08/20 18:19:15 by dajeon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,7 +87,7 @@ clean :
 
 fclean : 
 	$(RM) $(RMFLAGS) objs
-	$(RM) $(NAME)
+	$(RM) -f $(NAME)
 	$(MAKE) -C libft fclean
 
 re : 
