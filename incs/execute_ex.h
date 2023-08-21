@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:04:40 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/21 18:31:42 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/21 19:04:19 by dajeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,11 @@
 # include <stdlib.h>
 # include <stdio.h>
 
-typedef struct s_exnode
+typedef struct s_cmd
 {
-	int	read;
-	int	write;
+	t_list	*redilst;
 	char	**command;
-}	t_exnode;
+}	t_cmd;
 
 typedef struct s_redi
 {
@@ -31,17 +30,12 @@ typedef struct s_redi
 	char	*path;
 }	t_redi;
 
-typedef struct s_list
+typedef struct s_exnode
 {
-	void	*content;
-	struct s_list	*next;
-}	t_list;
-
-typedef struct s_cmd
-{
-	t_list	*redilst;
+	int	read;
+	int	write;
 	char	**command;
-}	t_cmd;
+}	t_exnode;
 
 typedef struct s_env
 {
@@ -56,7 +50,7 @@ void		exreal(t_exnode *arg, t_env **envlst, int noend, int outpipe);
 int			exbuiltin(t_exnode *arg, t_env **envlst, int noend, int outpipe);
 
 char	*get_next_line(int fd);
-int	ft_strcmp(const char *s1, const char *s2);
+int		ft_strcmp(const char *s1, const char *s2);
 void	twodfree(char **twod);
 
 #endif

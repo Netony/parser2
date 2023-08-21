@@ -1,3 +1,4 @@
+#include "minishell.h"
 #include "parser.h"
 
 t_list	*ft_redi(t_list *cmd);
@@ -14,7 +15,7 @@ t_cmd	*ft_convert(t_list *list)
 	while (list)
 	{
 		cmds[i].vars = ft_varsconv(list);
-		if (cmds[i].vars == NULL)
+		if (cmds[i].command == NULL)
 		{
 			ft_cmdsdel(cmds, i);
 			break ;
