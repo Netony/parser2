@@ -6,11 +6,11 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 14:15:37 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/21 18:08:52 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/21 18:52:01 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "minishell.h"
 
 // 할당 실패 시 에러처리 추가 필요
  
@@ -36,7 +36,6 @@ void	envseparate(char *nv, char **name, char **value)
 		*name = str;
 		*value = 0;
 	}
-	// 이후 '' 혹은 "" 처리(?)
 }
 
 t_env	*envsearch(t_env *envlst, char *name)

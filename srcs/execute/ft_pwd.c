@@ -6,11 +6,11 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:03:21 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/21 16:03:22 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/21 18:38:12 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "minishell.h"
 
 int	ft_pwd(t_env *envlst)
 {
