@@ -6,7 +6,7 @@
 #    By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/16 09:00:32 by dajeon            #+#    #+#              #
-#    Updated: 2023/08/21 18:29:53 by dajeon           ###   ########.fr        #
+#    Updated: 2023/08/21 18:31:07 by dajeon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,9 +18,9 @@ SOURCES = parser/ft_chunk_text.c \
 		  parser/ft_parse.c \
 		  parser/ft_text_parse.c \
 		  parser/ft_error.c \
-		  parser/ft_type.c
-		  parser/chunk.c \ 
-		  parser/utils.c \ 
+		  parser/ft_type.c \
+		  parser/chunk.c \
+		  parser/utils.c \
 		  parser/ft_env.c \
 		  parser/test.c \
 		  parser/ft_quote.c
