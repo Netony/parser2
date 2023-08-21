@@ -6,7 +6,7 @@
 #    By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/16 09:00:32 by dajeon            #+#    #+#              #
-#    Updated: 2023/08/21 16:14:02 by dajeon           ###   ########.fr        #
+#    Updated: 2023/08/21 17:29:32 by dajeon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,7 @@ AR = ar
 RM = rm
 
 CFLAGS = -Wall -Wextra -Werror
-LIBFLAGS = -l$(LIB) -L$(LIB_DIR)
+LIBFLAGS = -l$(LIB) -L$(LIB_DIR) -lreadline
 
 ARFLAGS = crus
 RMFLAGS = -rf

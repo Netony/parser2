@@ -23,6 +23,7 @@ t_list	*ft_chunks(const char *s, int *i)
 			return (NULL);
 		}
 		ft_lstadd_back(&list, node);
+		*i += ft_duplen(s, *i, " ");
 	}
 	return (list);
 }
@@ -32,7 +33,6 @@ t_chunk	*ft_chunk(const char *s, int *i)
 	char	*type;
 	char	*text;
 
-	*i += ft_duplen(s, *i, " ");
 	type = ft_type(s, i);
 	if (type == NULL)
 		return (NULL);

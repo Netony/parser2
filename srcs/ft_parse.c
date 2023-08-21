@@ -31,6 +31,7 @@ t_list	*ft_cmd(const char *s, int *i)
 	t_list	*chunks;
 
 	ft_pipe_check(s, i);
+	*i += ft_duplen(s, *i, " ");
 	chunks = ft_chunks(s, i);
 	if (chunks == NULL)
 		return (NULL);
