@@ -6,18 +6,18 @@
 #    By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/16 09:00:32 by dajeon            #+#    #+#              #
-#    Updated: 2023/08/21 17:29:32 by dajeon           ###   ########.fr        #
+#    Updated: 2023/08/21 18:18:12 by dajeon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = parser
 BONUS = 
 
-SOURCES = ft_chunk_text.c ft_chunk.c ft_parse.c \
+SOURCES = parser/ft_chunk_text.c ft_chunk.c ft_parse.c \
 		  ft_text_parse.c ft_error.c ft_type.c \
 		  chunk.c utils.c ft_env.c test.c ft_quote.c
 
-DIRS =
+DIRS = parser
 
 SOURCES_MANDA = main.c 
 SOURCES_BONUS =
