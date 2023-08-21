@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include "chunk.h"
 
-t_chunk	*ft_chknew(const char *type, const char *content)
+t_chunk	*ft_chknew(char *type, char *text)
 {
 	t_chunk	*chk;
 
@@ -9,13 +9,15 @@ t_chunk	*ft_chknew(const char *type, const char *content)
 	if (chk == NULL)
 		return (NULL);
 	chk->type = type;
-	chk->type = content;
+	chk->text = text;
 	return (chk);
 }
 
-void	ft_chkdel(t_chunk *chk)
+void	ft_chkdel(void *param)
 {
+	t_chunk	*chk;
+
+	chk = (t_chunk *)param;
 	free(chk->type);
-	free(chk->content);
-	return (0);
+	free(chk->text);
 }

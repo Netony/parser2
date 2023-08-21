@@ -1,25 +1,24 @@
 #include "parser.h"
+char	*ft_getenv(const char *s);
 
-int	ft_envsize(const char *s, int start)
+char	*ft_env(const char *s, int *i)
 {
-	int	size;
-	int	ret;
-
-	size = 1;
-	if (s[1] == '$')
-		return (2);
-	size += ft_toklen(s, start + size, " $\"\'|><");
-	return (size);
-}
-
-char	*ft_env(const char *s, int start, int size)
-{
+	int		len;
 	char	*temp;
 	char	*env;
 
-	if (size == 1)
-		return (ft_strdup("$"));
-	temp = ft_substr(s, start, size);
+	*i += 1;
+	len = ft_toklen(s, *i, "$\"\' <>|");
+	if (len == 0)
+	{
+		if (s[*i] == '$')
+			ft_getenv("$");
+		else if (s[*i] == '\0' || s[*i] == ' ')
+			return (ft_strdup("$"));
+		else
+			return (ft_strdup(""));
+	}
+	temp = ft_substr(s, *i, len);
 	if (temp == NULL)
 		return (NULL);
 	env = ft_getenv(temp);
@@ -29,6 +28,7 @@ char	*ft_env(const char *s, int start, int size)
 
 char	*ft_getenv(const char *s)
 {
+	(void)s;
 	return (ft_strdup("ENV_TEST"));
 }
 

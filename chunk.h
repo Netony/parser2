@@ -4,10 +4,10 @@
 typedef struct s_chunk
 {
 	char	*type;
-	char	*content;
+	char	*text;
 }	t_chunk;
 
-t_chunk	*ft_chknew(const char *type, const char *content);
-void	ft_chkdel(t_chunk *chk);
+t_chunk	*ft_chknew(char *type, char *text);
+void	ft_chkdel(void *param);
 
 #endif

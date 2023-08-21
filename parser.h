@@ -3,27 +3,27 @@
 
 #include <stdio.h>
 #include "libft/incs/libft.h"
+#include "chunk.h"
+#include "test.h"
 
-typedef struct s_cmd
-{
-	char	**vars;
-	t_list	*redis;
-}	t_cmd;
-
-typedef struct s_redi
-{
-	char	*type;
-	char	*path;
-}	t_redi;
+int	ft_error(void);
+void	ft_cmddel(void *lst);
+int	ft_pipe_check(const char *s, int *i);
 
 int	ft_isin(int a, const char *set);
 int	ft_toklen(const char *s, int start, const char *set);
 int	ft_toklen_zero(const char *s, int start, const char *set);
 int	ft_duplen(const char *s, int start, const char *set);
 
-// ENV
-char	*ft_getenv(const char *s);
-char	*ft_env(const char *s, int start, int size);
-int		ft_envsize(const char *s, int start);
+t_list	*parser(const char *s);
+t_list	*ft_cmd(const char *s, int *i);
+t_list	*ft_chunks(const char *s, int *i);
+t_chunk	*ft_chunk(const char *s, int *i);
+char	*ft_text(const char *s, int *i);
+char	*ft_type(const char *s, int *i);
+t_list	*ft_text_parse(const char *s, int *i);
+char	*ft_tok(const char *s, int *i);
+char	*ft_env(const char *s, int *i);
+char	*ft_lstjoin(t_list *lst);
 
 #endif
