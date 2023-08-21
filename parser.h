@@ -21,4 +21,9 @@ int	ft_toklen(const char *s, int start, const char *set);
 int	ft_toklen_zero(const char *s, int start, const char *set);
 int	ft_duplen(const char *s, int start, const char *set);
 
+// ENV
+char	*ft_getenv(const char *s);
+char	*ft_env(const char *s, int start, int size);
+int		ft_envsize(const char *s, int start);
+
 #endif

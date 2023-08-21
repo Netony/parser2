@@ -35,10 +35,15 @@ t_chunk	*ft_param(const char *s)
 char	*ft_content(const char *s, int start, int end, const char *set)
 {
 	t_list	*chunk;
+	int		ret;
 
 	chunk = NULL;
-	while (
+	while (start < end)
+	{
+		ret = 
+	}
 }
+
 
 t_list	*ft_chunk(const char *s, int *i, const char *set)
 {
