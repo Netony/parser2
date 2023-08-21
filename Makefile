@@ -6,7 +6,7 @@
 #    By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/16 09:00:32 by dajeon            #+#    #+#              #
-#    Updated: 2023/08/21 15:48:22 by dajeon           ###   ########.fr        #
+#    Updated: 2023/08/21 16:10:20 by dajeon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ BONUS =
 
 SOURCES = ft_chunk_text.c ft_chunk.c ft_parse.c \
 		  ft_text_parse.c ft_error.c ft_type.c \
-		  chunk.c utils.c ft_env.c test.c
+		  chunk.c utils.c ft_env.c test.c ft_quote.c
 
 DIRS =
 

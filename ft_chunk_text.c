@@ -29,8 +29,12 @@ t_list	*ft_text_parse(const char *s, int *i)
 	
 	if (s[*i] == '$')
 		text = ft_env(s, i);
-	else
-		text = ft_tok(s, i);
+	else if (s[*i] == '\'')
+		text = ft_quote(s, i);
+	else if (s[*i] == '\"')
+		text = ft_dquote(s, i);
+	else 
+		text = ft_tok(s, i, "$ <>|");
 	if (text == NULL)
 		return (NULL);
 	return (ft_lstnew(text));

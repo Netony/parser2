@@ -22,8 +22,10 @@ t_chunk	*ft_chunk(const char *s, int *i);
 char	*ft_text(const char *s, int *i);
 char	*ft_type(const char *s, int *i);
 t_list	*ft_text_parse(const char *s, int *i);
-char	*ft_tok(const char *s, int *i);
+char	*ft_tok(const char *s, int *i, const char *set);
 char	*ft_env(const char *s, int *i);
+char	*ft_dquote(const char *s, int *i);
+char	*ft_quote(const char *s, int *i);
 char	*ft_lstjoin(t_list *lst);
 
 #endif
