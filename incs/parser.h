@@ -2,7 +2,7 @@
 # define PARSER_H
 
 #include <stdio.h>
-#include "libft/incs/libft.h"
+#include "../libft/incs/libft.h"
 #include "chunk.h"
 #include "test.h"
 

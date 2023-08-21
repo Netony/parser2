@@ -6,7 +6,7 @@
 #    By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/16 09:00:32 by dajeon            #+#    #+#              #
-#    Updated: 2023/08/21 16:10:20 by dajeon           ###   ########.fr        #
+#    Updated: 2023/08/21 16:14:02 by dajeon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,9 +32,9 @@ LIB = ft
 # **************************************************************************** #
 
 LIB_DIR = libft
-SRC_DIR = .
+SRC_DIR = srcs
 OBJ_DIR = objs
-INC_DIR = .
+INC_DIR = incs
 
 SRCS := $(addprefix $(SRC_DIR)/, $(SOURCES))
 SRCS_MANDA := $(addprefix $(SRC_DIR)/, $(SOURCES_MANDA))
