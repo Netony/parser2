@@ -6,11 +6,11 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:03:53 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/21 16:03:55 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/21 18:38:22 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "minishell.h"
 
 int	ft_strcmp(const char *s1, const char *s2)
 {

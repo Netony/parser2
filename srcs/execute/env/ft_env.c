@@ -6,11 +6,11 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 14:39:08 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/21 18:07:39 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/21 18:37:29 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "minishell.h"
 
 int	ft_env(t_env *envlst)
 {

@@ -6,17 +6,18 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 14:15:53 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/21 14:21:33 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/21 18:51:30 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "minishell.h"
 
 // 할당 실패 시 에러처리 추가 필요
 
 t_env	*envlist(char **envp)
 {
 	t_env	*result;
+	t_env	*oldpwd;
 	t_env	**temp;
 	size_t	i;
 
@@ -31,9 +32,11 @@ t_env	*envlist(char **envp)
 		i++;
 		temp = &((*temp)->next);
 	}
+	oldpwd = envsearch(result, "OLDPWD");
+	free(oldpwd->value);
+	oldpwd->value = NULL;
 	return (result);
 }
-// + OLDPWD value값 할당해제 및 NULL
 
 void	envadd(t_env **envlst, char *nv)
 {

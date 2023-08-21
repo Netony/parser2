@@ -6,11 +6,11 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:05:07 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/21 16:05:09 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/21 18:43:18 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ex.h"
+#include "minishell.h"
 
 void	waiting(void)
 {
@@ -40,7 +40,7 @@ void	piping(t_cmd *lst, int size, t_env **envlst)
 	i = 0;
 	arg = exnodeset(lst[i], 0);
 	if (pipe(fd) == -1)
-		erroend();
+		errnoend();
 	pid = fork();
 	while (pid && i < size - 1)
 	{
@@ -51,7 +51,7 @@ void	piping(t_cmd *lst, int size, t_env **envlst)
 		i++;
 		arg = exnodeset(lst[i], fd[0]);
 		if (pipe(fd) == -1)
-			errorend();
+			errnoend();
 		pid = fork();
 	}
 	close(fd[0]);

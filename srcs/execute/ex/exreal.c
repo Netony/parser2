@@ -6,11 +6,11 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:05:17 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/21 16:05:19 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/21 18:46:06 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ex.h"
+#include "minishell.h"
 
 char	**pathset(t_env *envlst)
 {
@@ -96,7 +96,7 @@ void	exreal(t_exnode *arg, t_env **envlst, int noend, int outpipe)
 		exit(exbuiltin(arg, envlst, noend, outpipe));
 	cmdpath = pathmkr((arg->command)[0], *envlst);
 	if (!cmdpath)
-		errorend();
+		failend("command not found");
 	dup2(arg->read, 0);
 	if (arg->write != 1)
 		dup2(arg->write, 1);
@@ -105,5 +105,5 @@ void	exreal(t_exnode *arg, t_env **envlst, int noend, int outpipe)
 	envp = envpmkr(*envlst);
 	well = execve(cmdpath, arg->command, envp);
 	if (well == -1)
-		errorend();
+		errnoend();
 }

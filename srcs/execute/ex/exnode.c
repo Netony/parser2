@@ -6,11 +6,11 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:04:58 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/21 16:05:01 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/21 18:36:47 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ex.h"
+#include "minishell.h"
 
 char	*nonexitpath(void)
 {
