@@ -6,63 +6,84 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 14:15:53 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/21 18:51:30 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/22 19:07:10 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// 할당 실패 시 에러처리 추가 필요
-
 t_env	*envlist(char **envp)
 {
 	t_env	*result;
-	t_env	*oldpwd;
 	t_env	**temp;
-	size_t	i;
+	int		i;
 
-	i = 0;
-	result = 0;
+	i = -1;
 	temp = &result;
-	while (envp[i + 1])
+	while (envp[(++i) + 1])
 	{
 		*temp = (t_env *)malloc(sizeof(t_env));
+		if (!(*temp))
+		{
+			envlstfree(result);
+			errorend(MS_MALLOC, 0);
+		}
 		envseparate(envp[i], &((*temp)->name), &((*temp)->value));
 		(*temp)->next = 0;
-		i++;
+		if (!((*temp)->name))
+		{
+			envlstfree(result);
+			errorend(MS_MALLOC, 0);
+		}
 		temp = &((*temp)->next);
 	}
-	oldpwd = envsearch(result, "OLDPWD");
-	free(oldpwd->value);
-	oldpwd->value = NULL;
+	freenull(&((envsearch(result, "OLDPWD"))->value));
 	return (result);
 }
 
-void	envadd(t_env **envlst, char *nv)
+int	envchange(t_env *envlst, char *name, char *value)
 {
-	t_env	*envedit;
+	t_env	*node;
+
+	node = envsearch(envlst, name);
+	if (node)
+	{
+		if (value)
+		{
+			free(node->value);
+			node->value = value;
+		}
+		return (1);
+	}
+	return (0);
+}
+
+int	envadd(t_env **envlst, char *nv)
+{
+	t_env	*temp;
 	char	*name;
 	char	*value;
 
 	envseparate(nv, &name, &value);
-	envedit = envsearch(*envlst, name);
-	if (envedit)
+	if (!name)
+		return (MS_MALLOC);
+	if (envchange(*envlst, name, value))
 	{
 		free(name);
-		if (value)
-		{
-			free(envedit->value);
-			envedit->value = value;
-		}
+		return (MS_SUCCESS);
 	}
-	else
+	temp = (t_env *)malloc(sizeof(t_env));
+	if (!temp)
 	{
-		envedit = *envlst;
-		*envlst = (t_env *)malloc(sizeof(t_env));
-		(*envlst)->name = name;
-		(*envlst)->value = value;
-		(*envlst)->next = envedit;
+		free(name);
+		free(value);
+		return (MS_MALLOC);
 	}
+	temp->name = name;
+	temp->value = value;
+	temp->next = *envlst;
+	*envlst = temp;
+	return (MS_SUCCESS);
 }
 
 void	envdelete(t_env **envlst, char *name)

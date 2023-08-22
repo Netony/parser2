@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 14:15:22 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/22 14:50:26 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/22 19:18:47 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,16 @@ typedef struct s_env
 }	t_env;
 
 t_env	*envlist(char **envp);
-void	envedit(t_env **envlst, char *nv);
+int		envadd(t_env **envlst, char *nv);
+void	envdelete(t_env **envlst, char *name);
 void	envseparate(char *nv, char **name, char **value);
 t_env	*envsearch(t_env *envlst, char *name);
+void	envfree(t_env *node);
+void	envlstfree(t_env *envlst);
 char	**envpmkr(t_env *envlst);
 
-int	ft_strcmp(const char *s1, const char *s2);
-
-int	ft_env(t_env *envlst);
-int	ft_export(char **command, t_env **envlst);
-int	ft_unset(char **command, t_env **envlst);
+int		ft_env(t_env *envlst);
+int		ft_export(char **command, t_env **envlst);
+int		ft_unset(char **command, t_env **envlst);
 
 #endif

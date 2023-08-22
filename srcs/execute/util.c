@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:03:53 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/21 18:38:22 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/22 18:39:30 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,10 @@ void	twodfree(char **twod)
 		i++;
 	}
 	free(twod);
+}
+
+void	freenull(char **str)
+{
+	free(*str);
+	*str = NULL;
 }

@@ -6,21 +6,23 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 14:15:37 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/22 16:20:07 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/22 19:00:01 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// 할당 실패 시 에러처리 추가 필요
- 
 void	envseparate(char *nv, char **name, char **value)
 {
 	char	*str;
 	char	*temp;
 
 	str = ft_strdup(nv);
+	if (!str)
+		return ;
 	temp = ft_strchr(str, '=');
+	*name = str;
+	*value = 0;
 	if (temp)
 	{
 		*temp = '\0';
@@ -30,11 +32,11 @@ void	envseparate(char *nv, char **name, char **value)
 		temp = *value;
 		*value = ft_strdup(temp);
 		free(str);
-	}
-	else
-	{
-		*name = str;
-		*value = 0;
+		if (!(*name) || !(*value))
+		{
+			freenull(name);
+			freenull(value);
+		}
 	}
 }
 
