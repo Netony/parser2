@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:05:17 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/21 18:46:06 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/22 15:02:05 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,20 @@ char	**pathset(t_env *envlst)
 	while (ft_strcmp(pathnode->name, "PATH"))
 		pathnode = pathnode->next;
 	result = ft_split(pathnode->value, ':');
-	i = 0;
-	while (result[i])
+	if (!result)
+		return (0);
+	i = -1;
+	while (result[++i])
 	{
 		temp = result[i];
 		result[i] = ft_strjoin(temp, "/");
+		if (!result[i])
+		{
+			result[i] = temp;
+			twodfree(result);
+			return (0);
+		}
 		free(temp);
-		i++;
 	}
 	return (result);
 }
@@ -42,47 +49,24 @@ char	*pathmkr(char *origin, t_env *envlst)
 	int		i;
 
 	path = pathset(envlst);
+	if (!path)
+		return (0);
 	result = ft_strdup(origin);
-	i = 0;
-	while (path[i] && access(result, F_OK))
+	if (!result)
+		return (0);
+	i = -1;
+	while (path[++i] && access(result, F_OK))
 	{
 		free(result);
 		result = ft_strjoin(path[i], origin);
-		i++;
+		if (!result)
+			return (0);
 	}
 	twodfree(path);
 	if (!(access(result, F_OK)))
 		return (result);
 	free(result);
-	return (0);
-}
-
-char	**envpmkr(t_env *envlst)
-{
-	int		i;
-	t_env	*temp;
-	char	*middle;
-	char	**result;
-
-	i = 0;
-	temp = envlst;
-	while (temp)
-	{
-		temp = temp->next;
-		i++;
-	}
-	result = (char **)malloc(sizeof(char *) * (i + 1));
-	temp = envlst;
-	i = 0;
-	while (temp)
-	{
-		middle = ft_strjoin(temp->name, "=");
-		result[i] = ft_strjoin(middle, temp->value);
-		free(middle);
-		temp = temp->next;
-		i++;
-	}
-	result[i] = NULL;
+	result = ft_strdup(origin);
 	return (result);
 }
 
@@ -96,14 +80,17 @@ void	exreal(t_exnode *arg, t_env **envlst, int noend, int outpipe)
 		exit(exbuiltin(arg, envlst, noend, outpipe));
 	cmdpath = pathmkr((arg->command)[0], *envlst);
 	if (!cmdpath)
-		failend("command not found");
+		errorend(MS_MALLOC, 0);
 	dup2(arg->read, 0);
 	if (arg->write != 1)
 		dup2(arg->write, 1);
 	else if (noend)
 		dup2(outpipe, 1);
 	envp = envpmkr(*envlst);
+	if (!envp)
+		errorend(MS_MALLOC, 0);
 	well = execve(cmdpath, arg->command, envp);
 	if (well == -1)
-		errnoend();
+		errorend(MS_ERRNO, 0);
 }
+// 상대경로 기능 추가하기

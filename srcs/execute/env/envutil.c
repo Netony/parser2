@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 14:15:37 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/21 18:52:01 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/22 16:20:07 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,18 @@ void	envfree(t_env *node)
 	free(node->name);
 	free(node->value);
 	free(node);
+}
+
+void	envlstfree(t_env *envlst)
+{
+	t_env	*tmpfree;
+	t_env	*tmpnext;
+
+	tmpfree = envlst;
+	while (tmpfree)
+	{
+		tmpnext = tmpfree->next;
+		envfree(tmpfree);
+		tmpfree = tmpnext;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:04:58 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/21 18:36:47 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/22 16:01:18 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,13 @@ void	openclose(t_exnode *result, t_redi *content)
 		fd = open(content->path, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	else if (++flag && !(ft_strcmp(content->type, "append")))
 		fd = open(content->path, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	if ((flag == 1 || flag == 2) && result->read != -1)
+	if (flag == 1 || flag == 2)
 	{
 		if (result->read != 0)
 			close(result->read);
 		result->read = fd;
 	}
-	else if ((flag == 3 || flag == 4) && result->write != -1)
+	else if (flag == 3 || flag == 4)
 	{
 		if (result->write != 1)
 			close(result->write);
@@ -110,12 +110,23 @@ t_exnode	*exnodeset(t_cmd node, int inpipe)
 	t_list		*temp;
 
 	result = (t_exnode *)malloc(sizeof(t_exnode));
+	if (!result)
+	{
+		errormsg(MS_MALLOC, 0);
+		return (0);
+	}
 	result->read = inpipe;
 	result->write = 1;
 	temp = node.redilst;
 	while (temp)
 	{
 		openclose(result, (t_redi *)(temp->content));
+		if (result->read == -1 || result->write == -1)
+		{
+			free(result);
+			errormsg(MS_ERRNO, 0);
+			return (0);
+		}
 		temp = temp->next;
 	}
 	result->command = node.command;
