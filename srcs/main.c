@@ -3,13 +3,16 @@
 #include <readline/history.h>
 #include <readline/readline.h>
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	char	*buf;
 	t_list	*cmd_list;
 	int		cmd_size;
 	t_cmd	*cmd_array;
 
+	(void)argc;
+	(void)argv;
+	(void)envp;
 	while (1)
 	{
 		buf = readline("minishell$ ");

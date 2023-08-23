@@ -6,7 +6,7 @@
 #    By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/16 09:00:32 by dajeon            #+#    #+#              #
-#    Updated: 2023/08/23 13:46:21 by dajeon           ###   ########.fr        #
+#    Updated: 2023/08/23 14:17:44 by dajeon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,12 +25,26 @@ SOURCES = parser/redi.c \
 		  parser/ft_convert.c \
 		  parser/ft_conv_redi.c \
 		  parser/vars.c \
-		  parser/cmd.c
+		  parser/cmd.c 
 
-DIRS = parser
+DIRS = parser env
 
 SOURCES_MANDA = main.c 
-SOURCES_BONUS =
+SOURCES_BONUS = main_test.c \
+				ft_cd.c \
+				ft_pwd.c \
+				util.c \
+				ft_echo.c \
+				env/envset.c \
+				env/ft_env.c \
+				env/ft_unset.c \
+				env/envpmkr.c \
+				env/envutil.c \
+				env/ft_export.c \
+				ex/exbuiltin.c \
+				ex/expipe.c \
+				ex/exnode.c \
+				ex/exreal.c
 
 INCLUDES = 
 INCLUDES_MANDA =
