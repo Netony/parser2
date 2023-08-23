@@ -9,6 +9,20 @@ void	leaks(void)
 	system("leaks parser");
 }
 
+void	ms_excuter(t_cmd *cmd_array, int cmd_size, t_env **envlst)
+{
+	t_exnode	*onebuilt;
+
+	if (cmd_size == 1 && \
+			builtincheck((cmd_array->command)[0]))
+	{
+		onebuilt = exnodeset(*cmd_array, 0);
+		exbuiltin(onebuilt, envlst, 0, 1);
+	}
+	else
+		piping(cmd_array, cmd_size, envlst);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char	*buf;
@@ -37,7 +51,7 @@ int	main(int argc, char **argv, char **envp)
 				continue ;
 			ft_cmddel(cmd_list);
 			ft_print_cmds(cmd_array, cmd_size);
-			piping(cmd_array, cmd_size, &envlst);
+			ms_excuter(cmd_array, cmd_size, &envlst);
 		}
 		else
 			break ;
