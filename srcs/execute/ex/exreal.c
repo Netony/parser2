@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:05:17 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/22 15:02:05 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/23 12:25:15 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,3 @@ void	exreal(t_exnode *arg, t_env **envlst, int noend, int outpipe)
 	if (well == -1)
 		errorend(MS_ERRNO, 0);
 }
-// 상대경로 기능 추가하기

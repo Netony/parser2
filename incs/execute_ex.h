@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:04:40 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/22 19:21:04 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/23 13:49:05 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,10 @@ t_exnode	*exnodeset(t_cmd node, int inpipe);
 void		exreal(t_exnode *arg, t_env **envlst, int noend, int outpipe);
 int			exbuiltin(t_exnode *arg, t_env **envlst, int noend, int outpipe);
 int			builtincheck(char *command);
+
+int			ft_cd(char **command, t_env *envlst);
+int			ft_echo(char **command);
+int			ft_pwd(t_env *envlst);
 
 char	*get_next_line(int fd);
 
