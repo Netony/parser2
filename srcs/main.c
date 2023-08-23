@@ -3,17 +3,25 @@
 #include <readline/history.h>
 #include <readline/readline.h>
 
+void	leaks(void)
+{
+	system("leaks parser");
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char	*buf;
 	t_list	*cmd_list;
 	int		cmd_size;
 	t_cmd	*cmd_array;
+	int		i;
 
+	i = 0;
 	(void)argc;
 	(void)argv;
 	(void)envp;
-	while (1)
+	atexit(leaks);
+	while (i++ < 2)
 	{
 		buf = readline("minishell$ ");
 		if (buf)
@@ -33,6 +41,7 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		add_history(buf);
 		free(buf);
+		ft_cmdsdel(cmd_array, cmd_size);
 	}
 	return (0);
 }
