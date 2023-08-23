@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:04:48 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/23 13:18:18 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/23 14:32:34 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	exbuiltin(t_exnode *arg, t_env **envlst, int noend, int outpipe)
 	char	**command;
 	int		result;
 
+	result = -1;
 	command = arg->command;
 	dup2(arg->read, 0);
 	if (arg->write != 1)
@@ -54,7 +55,7 @@ int	exbuiltin(t_exnode *arg, t_env **envlst, int noend, int outpipe)
 		result = ft_unset(command, envlst);
 	else if (!(ft_strcmp(command[0], "env")))
 		result = ft_env(*envlst);
-	else if (!(ft_strcmp(command[0], "exit")))
-		result = ft_exit();
+	/*else if (!(ft_strcmp(command[0], "exit")))
+		result = ft_exit();*/
 	return (result);
 }

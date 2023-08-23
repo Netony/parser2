@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:05:17 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/23 12:25:15 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/23 14:35:20 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ char	*pathmkr(char *origin, t_env *envlst)
 {
 	char	**path;
 	char	*result;
-	char	*temp;
 	int		i;
 
 	path = pathset(envlst);

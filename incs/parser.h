@@ -43,7 +43,6 @@ char	*ft_lstjoin(t_list *lst);
 int		ft_isin(int a, const char *set);
 int		ft_toklen(const char *s, int start, const char *set);
 int		ft_toklen_zero(const char *s, int start, const char *set);
-int		ft_strcmp(char *s1, char *s2);
 int		ft_duplen(const char *s, int start, const char *set);
 
 t_cmd	*ft_convert(t_list *list);
@@ -52,4 +51,6 @@ char	**ft_conv_vars(t_list *node);
 int		ft_varslen(t_list *node);
 int		ft_varsclear(char **vars);
 int		ft_varsdel(char **vars, int size);
+
+int		ft_strcmp(const char *s1, const char *s2);
 #endif

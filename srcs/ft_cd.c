@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 13:14:30 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/23 13:53:58 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/23 14:22:16 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	pwdchange(t_env *envlst)
 int	ft_cd(char **command, t_env *envlst)
 {
 	int		result;
-	char	*temp;
 	t_env	*home;
 
 	if (command[1])
