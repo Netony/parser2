@@ -1,6 +1,22 @@
 #include "parser.h"
 
-char	*ft_type(const char *s, int *i)
+char	*ft_parse_type(const char *s, int *i)
+{
+	char	*type;
+	
+	type = ft_parse_type_set(s, i);
+	if (type == NULL)
+		return (NULL);
+	if (s[*i] == '\0' || ft_isin(s[*i], "<>|"))
+	{
+		free(type);
+		ft_error();
+		return (NULL);
+	}
+	return (type);
+}
+
+char	*ft_parse_type_set(const char *s, int *i)
 {
 	char	*type;
 

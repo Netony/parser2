@@ -6,24 +6,26 @@
 #    By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/16 09:00:32 by dajeon            #+#    #+#              #
-#    Updated: 2023/08/21 18:58:44 by dajeon           ###   ########.fr        #
+#    Updated: 2023/08/23 13:46:21 by dajeon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = parser
 BONUS = 
 
-SOURCES = parser/ft_chunk_text.c \
-		  parser/ft_chunk.c \
-		  parser/ft_parse.c \
-		  parser/ft_text_parse.c \
+SOURCES = parser/redi.c \
+		  parser/ft_parse_redi.c \
+		  parser/ft_parse_redi_path.c \
+		  parser/ft_parse_redi_type.c \
+		  parser/ft_parse_text.c \
 		  parser/ft_error.c \
-		  parser/ft_type.c \
-		  parser/chunk.c \
+		  parser/ft_parse.c \
 		  parser/utils.c \
-		  parser/ft_env.c \
 		  parser/test.c \
-		  parser/ft_quote.c
+		  parser/ft_convert.c \
+		  parser/ft_conv_redi.c \
+		  parser/vars.c \
+		  parser/cmd.c
 
 DIRS = parser
 

@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "parser.h"
 
 int	ft_cmdsdel(t_cmd *cmds, int size)
 {
@@ -7,25 +7,23 @@ int	ft_cmdsdel(t_cmd *cmds, int size)
 	i = 0;
 	while (i < size)
 	{
-		ft_varsclear(cmds[i].vars);
-		ft_lstclear(&(cmds[i].list), ft_chkdel);
+		ft_varsclear(cmds[i].command);
+		ft_lstclear(&(cmds[i].redilst), ft_redidel);
 		i++;
 	}
 	free(cmds);
 	return (0);
 }
 
-int	ft_cmdsclear(t_cmd *cmds)
+int	ft_cmdsize(t_list *cmd)
 {
-	int	i;
+	int	size;
 
-	i = 0;
-	while (cmds[i])
+	size = 0;
+	while (cmd)
 	{
-		ft_varsclear(cmds[i].vars);
-		ft_lstclear(&(cmds[i].list), ft_chkdel);
-		i++;
+		cmd = cmd->next;
+		size++;
 	}
-	free(cmds);
-	return (0);
+	return (size);
 }

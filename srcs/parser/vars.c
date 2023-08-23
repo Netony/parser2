@@ -19,33 +19,21 @@ int	ft_varsclear(char **vars)
 	while (vars[i])
 		free(vars[i++]);
 	free(vars);
+	return (0);
 }
 
-char	**ft_varsconv(t_list *node)
+int	ft_varslen(t_list *redi_list)
 {
-	t_chunk	*chunk;
-	char	**vars;
-	int		i;
+	t_redi	*redi;
+	int		size;
 
-	vars = (char **)malloc(sizeof(char *) * (ft_vars_size(cmd) + 1));
-	if (vars == NULL)
-		return (NULL);
-	i = 0;
-	while (chunk)
+	size = 0;
+	while (redi_list)
 	{
-		chunk = (t_chunk *)(cmd->content);
-		if (ft_strcmp(chunk->type, "param"))
-		{
-			vars[i] = ft_strdup(chunk->text);
-			if (vars[i] == NULL)
-			{
-				ft_varsdel(vars, i);
-				return (NULL);
-			}
-			i++;
-		}
-		cmd = cmd->next;
+		redi = (t_redi *)(redi_list->content);
+		if (ft_strcmp(redi->type, "param") == 0)
+			size++;
+		redi_list = redi_list->next;
 	}
-	vars[i] = NULL;
-	return (vars);
+	return (size);
 }

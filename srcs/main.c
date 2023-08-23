@@ -6,12 +6,26 @@
 int	main(void)
 {
 	char	*buf;
+	t_list	*cmd_list;
+	int		cmd_size;
+	t_cmd	*cmd_array;
 
 	while (1)
 	{
 		buf = readline("minishell$ ");
 		if (buf)
-			ft_print_cmd(parser(buf));
+		{
+			cmd_list = parser(buf);
+			ft_print_cmd(cmd_list);
+			if (cmd_list == NULL)
+				continue ;
+			cmd_size = ft_cmdsize(cmd_list);
+			cmd_array = ft_convert(cmd_list);
+			if (cmd_array == NULL)
+				continue ;
+			ft_cmddel(cmd_list);
+			ft_print_cmds(cmd_array, cmd_size);
+		}
 		else
 			break ;
 		add_history(buf);

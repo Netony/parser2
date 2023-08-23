@@ -1,99 +1,39 @@
-#include "minishell.h"
 #include "parser.h"
 
 t_list	*ft_redi(t_list *cmd);
 char	**ft_varsconv(t_list *node);
 int		ft_cmdsize(t_list *cmd);
 
-t_cmd	*ft_convert(t_list *list)
+t_cmd	*ft_convert(t_list *cmd_list)
 {
 	t_cmd	*cmds;
+	t_list	*redi_list;
 	int		i;
 	
-	cmds = (t_cmd *)malloc(sizeof(t_cmd) * (ft_cmdsize(cmd) + 1));
+	cmds = (t_cmd *)malloc(sizeof(t_cmd) * ft_cmdsize(cmd_list));
+	if (cmds == NULL)
+		return (NULL);
 	i = 0;
-	while (list)
+	while (cmd_list)
 	{
-		cmds[i].vars = ft_varsconv(list);
+		redi_list = cmd_list->content;
+		cmds[i].command = ft_conv_vars(redi_list);
 		if (cmds[i].command == NULL)
 		{
 			ft_cmdsdel(cmds, i);
 			break ;
 		}
-		cmds[i].list = ft_rediconv(list);
-		if (cmds[i].list == NULL)
+		cmds[i].redilst = ft_conv_redi(redi_list);
+		/*
+		if (cmds[i].redilst == NULL)
 		{
-			ft_varsclear(cmds[i].vars);
+			ft_varsclear(cmds[i].command);
 			ft_cmdsdel(cmds, i);
 			break ;
 		}
+		*/
 		i++;
-		list = list->next;
+		cmd_list = cmd_list->next;
 	}
-	cmds[i] = NULL;
 	return (cmds);
 }
-
-int	ft_cmdsize(t_list *cmd)
-{
-	int	size;
-
-	size = 0;
-	while (cmd)
-	{
-		cmd = cmd->next;
-		size++;
-	}
-	return (size);
-}
-
-t_list	*ft_rediconv(t_list *node)
-{
-	t_list	*list;
-	t_list	*new;
-	t_chunk	*chunk;
-	t_chunk	*chunk_new;
-
-	list = NULL;
-	while (node)
-	{
-		chunk = (t_chunk *)(node->content);
-		if (!ft_strcmp(chunk->type, "param"))
-		{
-			chunk_new = ft_chkcopy(chunk);
-			if (chunk_new == NULL)
-			{
-				ft_lstclear(&list, ft_chkdel);
-				return (NULL);
-			}
-			new = ft_lstnew(chunk_new);
-			if (new == NULL)
-			{
-				ft_chkdel(chunk_new);
-				ft_lstclear(&list, ft_chkdel);
-				return (NULL);
-			}
-			ft_lstadd_back(&list, new);
-		}
-		node = node->next;
-	}
-	return (list);
-}
-
-int	ft_vars_size(t_list *node)
-{
-	t_chunk	*chunk;
-	int		size;
-
-	size = 0;
-	while (cmd)
-	{
-		chunk = (t_chunk *)(cmd->content);
-		if (ft_strcmp(chunk->type, "param"))
-			size++;
-		cmd = cmd->next;
-	}
-	return (size);
-}
-
-
