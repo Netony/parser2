@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:05:07 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/22 15:20:33 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/23 14:34:57 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	expipe(t_cmd *lst, int size, t_env **envlst)
 
 	i = 0;
 	fd[0] = 0;
-	errorcode = nodepipefork(lst[i], fd, *arg, *pid);
+	errorcode = nodepipefork(lst[i], fd, &arg, &pid);
 	if (errorcode)
 		return (errorcode);
 	while (pid && i < size - 1)
@@ -67,7 +67,7 @@ int	expipe(t_cmd *lst, int size, t_env **envlst)
 		close(fd[1]);
 		free(arg);
 		i++;
-		errorcode = nodepipefork(lst[i], fd, *arg, *pid);
+		errorcode = nodepipefork(lst[i], fd, &arg, &pid);
 		if (errorcode)
 			return (errorcode);
 	}

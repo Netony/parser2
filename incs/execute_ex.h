@@ -1,34 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ex.h                                               :+:      :+:    :+:   */
+/*   execute_ex.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/21 16:04:40 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/23 14:03:08 by dajeon           ###   ########.fr       */
+/*   Created: 2023/08/23 14:19:57 by seunghy2          #+#    #+#             */
+/*   Updated: 2023/08/23 14:24:35 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EX_h
-# define EX_H
+#ifndef EXECUTE_EX_H
+# define EXECUTE_EX_H
 
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdlib.h>
 # include <stdio.h>
-
-typedef struct s_cmd
-{
-	t_list	*redilst;
-	char	**command;
-}	t_cmd;
-
-typedef struct s_redi
-{
-	char	*type;
-	char	*path;
-}	t_redi;
 
 typedef struct s_exnode
 {
@@ -36,13 +24,6 @@ typedef struct s_exnode
 	int	write;
 	char	**command;
 }	t_exnode;
-
-typedef struct s_env
-{
-	char	*name;
-	char	*value;
-	struct s_env	*next;
-}	t_env;
 
 void		piping(t_cmd *lst, int size, t_env **envlst);
 t_exnode	*exnodeset(t_cmd node, int inpipe);

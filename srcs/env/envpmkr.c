@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 14:49:24 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/22 14:52:14 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/23 14:29:34 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	envsize(t_env *envlst)
 
 	result = 0;
 	temp = envlst;
-	whiel (temp)
+	while (temp)
 	{
 		temp = temp->next;
 		result++;
@@ -32,6 +32,7 @@ char	**envpmkr(t_env *envlst)
 	int		i;
 	char	*middle;
 	char	**result;
+	t_env	*temp;
 
 	i = envsize(envlst);
 	result = (char **)malloc(sizeof(char *) * (i + 1));
