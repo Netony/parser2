@@ -15,19 +15,19 @@ int	main(int argc, char **argv, char **envp)
 	int		cmd_size;
 	t_cmd	*cmd_array;
 	int		i;
+	t_env	*envlst;
 
 	i = 0;
 	(void)argc;
 	(void)argv;
-	(void)envp;
 	atexit(leaks);
+	envlst = envlist(envp);
 	while (i++ < 2)
 	{
 		buf = readline("minishell$ ");
 		if (buf)
 		{
 			cmd_list = parser(buf);
-			ft_print_cmd(cmd_list);
 			if (cmd_list == NULL)
 				continue ;
 			cmd_size = ft_cmdsize(cmd_list);
@@ -35,13 +35,16 @@ int	main(int argc, char **argv, char **envp)
 			if (cmd_array == NULL)
 				continue ;
 			ft_cmddel(cmd_list);
-			ft_print_cmds(cmd_array, cmd_size);
+			// ft_print_cmds(cmd_array, cmd_size);
+			piping(cmd_array, cmd_size, &envlst);
 		}
 		else
 			break ;
+		/*
 		add_history(buf);
 		free(buf);
 		ft_cmdsdel(cmd_array, cmd_size);
+		*/
 	}
 	return (0);
 }

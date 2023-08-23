@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 14:49:24 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/23 14:29:34 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/23 16:16:39 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,19 @@ char	**envpmkr(t_env *envlst)
 	i = 0;
 	while (temp)
 	{
-		middle = ft_strjoin(temp->name, "=");
-		result[i] = ft_strjoin(middle, temp->value);
-		free(middle);
-		if (!result[i])
+		if (temp->value)
 		{
-			twodfree(result);
-			return (0);
+			middle = ft_strjoin(temp->name, "=");
+			result[i] = ft_strjoin(middle, temp->value);
+			free(middle);
+			if (!(result[i]))
+			{
+				twodfree(result);
+				return (0);
+			}
+			i++;
 		}
 		temp = temp->next;
-		i++;
 	}
 	result[i] = NULL;
 	return (result);
