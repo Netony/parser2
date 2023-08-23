@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:04:48 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/21 18:36:39 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/23 13:18:18 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	exbuiltin(t_exnode *arg, t_env **envlst, int noend, int outpipe)
 	if (!(ft_strcmp(command[0], "echo")))
 		result = ft_echo(command);
 	else if (!(ft_strcmp(command[0], "cd")))
-		result = ft_cd();
+		result = ft_cd(command, *envlst);
 	else if (!(ft_strcmp(command[0], "pwd")))
 		result = ft_pwd(*envlst);
 	else if (!(ft_strcmp(command[0], "export")))
