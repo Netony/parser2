@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 14:19:57 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/23 14:24:35 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/24 13:14:13 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int			builtincheck(char *command);
 
 int			ft_cd(char **command, t_env *envlst);
 int			ft_echo(char **command);
-int			ft_pwd(t_env *envlst);
+int			ft_pwd(void);
 
 char	*get_next_line(int fd);
 

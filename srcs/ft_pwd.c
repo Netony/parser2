@@ -6,18 +6,23 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:03:21 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/23 16:36:45 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/24 13:13:48 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_pwd(t_env *envlst)
+int	ft_pwd(void)
 {
-	t_env	*node;
+	char	*pwd;
 
-	node = envsearch(envlst, "PWD");
-	printf("%s\n", node->value);
+	pwd = getcwd(NULL, 0);
+	if (!pwd)
+	{
+		errormsg(MS_ERRNO, 0);
+		return (-1);
+	}
+	printf("%s\n", pwd);
+	free(pwd);
 	return (0);
 }
-//수정필요. 현재 경로 추출하는 함수 활용
