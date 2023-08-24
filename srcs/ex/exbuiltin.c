@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:04:48 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/24 13:11:36 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/24 16:38:36 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	exbuiltin(t_exnode *arg, t_env **envlst, int noend, int outpipe)
 		result = ft_unset(command, envlst);
 	else if (!(ft_strcmp(command[0], "env")))
 		result = ft_env(*envlst);
-	/*else if (!(ft_strcmp(command[0], "exit")))
-		result = ft_exit();*/
+	else if (!(ft_strcmp(command[0], "exit")))
+		result = ft_exit(command);
 	return (result);
 }

@@ -6,7 +6,7 @@
 #    By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/16 09:00:32 by dajeon            #+#    #+#              #
-#    Updated: 2023/08/23 14:39:26 by seunghy2         ###   ########.fr        #
+#    Updated: 2023/08/24 16:44:01 by seunghy2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SOURCES_BONUS = main_test.c \
 				error.c \
 				ft_cd.c \
 				ft_pwd.c \
+				ft_exit.c \
 				util.c \
 				ft_echo.c \
 				env/envset.c \
