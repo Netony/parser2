@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:05:07 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/23 14:34:57 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/27 16:09:43 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,28 +30,28 @@ void	argfree(t_exnode *arg)
 	free(arg);
 }
 
-int	nodepipefork(t_cmd origin, int fd[2], t_exnode **arg, pid_t *pid)
+int	nodepipefork(t_cmd origin, int fd[2], t_exnode *arg, pid_t *pid)
 {
-	*arg = exnodeset(origin, fd[0]);
-	if (!(*arg))
-		return (MS_PAST);
+	if (exnodeset(arg, origin, fd[0]))
+		return (MS_ERRNO);
 	if (pipe(fd) == -1)
 	{
-		free(arg);
+		exnodeclose(arg);
 		return (MS_ERRNO);
 	}
 	*pid = fork();
 	if (*pid == -1)
 	{
-		free(arg);
+		exnodeclose(arg);
+		close(fd[0]);
+		close(fd[1]);
 		return (MS_ERRNO);
 	}
 	return (MS_SUCCESS);
 }
 
-int	expipe(t_cmd *lst, int size, t_env **envlst)
+int	expipe(t_exnode *arg, t_cmd *lst, int size, t_env **envlst)
 {
-	t_exnode	*arg;
 	int			fd[2];
 	pid_t		pid;
 	int			i;
@@ -59,30 +59,36 @@ int	expipe(t_cmd *lst, int size, t_env **envlst)
 
 	i = 0;
 	fd[0] = 0;
-	errorcode = nodepipefork(lst[i], fd, &arg, &pid);
+	errorcode = nodepipefork(lst[i], fd, &(arg[i]), &pid);
 	if (errorcode)
 		return (errorcode);
 	while (pid && i < size - 1)
 	{
 		close(fd[1]);
-		free(arg);
+		exnodeclose(&(arg[i]));
 		i++;
-		errorcode = nodepipefork(lst[i], fd, &arg, &pid);
+		errorcode = nodepipefork(lst[i], fd, &(arg[i]), &pid);
 		if (errorcode)
 			return (errorcode);
 	}
 	close(fd[0]);
 	if (!pid)
-		exreal(arg, envlst, size - i - 1, fd[1]);
-	free(arg);
+		exreal(&(arg[i]), envlst, size - i - 1, fd[1]);
+	exnodeclose(&(arg[i]));
+	waitpid(pid, &status, 0);
 	return (MS_SUCCESS);
 }
 
 void	piping(t_cmd *lst, int size, t_env **envlst)
 {
 	int	errorcode;
+	t_exnode	*exlst;
 
-	errorcode = expipe(lst, size, envlst);
+	exlst = (t_exnode *)malloc(sizeof(t_exnode) * size);
+	if (!exlst)
+		errormsg(MS_MALLOC, 0);
+	errorcode = expipe(exlst, lst, size, envlst);
+	exlstfree(exlst, size);
 	if (errorcode)
 		errormsg(errorcode, 0);
 	waiting();

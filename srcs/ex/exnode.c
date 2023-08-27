@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:04:58 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/22 16:01:18 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/27 16:00:33 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,31 +104,20 @@ void	openclose(t_exnode *result, t_redi *content)
 	}
 }
 
-t_exnode	*exnodeset(t_cmd node, int inpipe)
+int	exnodeset(t_exnode *arg, t_cmd node, int inpipe)
 {
-	t_exnode	*result;
 	t_list		*temp;
 
-	result = (t_exnode *)malloc(sizeof(t_exnode));
-	if (!result)
-	{
-		errormsg(MS_MALLOC, 0);
-		return (0);
-	}
-	result->read = inpipe;
-	result->write = 1;
+	arg->read = inpipe;
+	arg->write = 1;
 	temp = node.redilst;
 	while (temp)
 	{
-		openclose(result, (t_redi *)(temp->content));
-		if (result->read == -1 || result->write == -1)
-		{
-			free(result);
-			errormsg(MS_ERRNO, 0);
-			return (0);
-		}
+		openclose(arg, (t_redi *)(temp->content));
+		if (arg->read == -1 || arg->write == -1)
+			return (MS_ERRNO);
 		temp = temp->next;
 	}
-	result->command = node.command;
-	return (result);
+	arg->command = node.command;
+	return (MS_SUCCESS);
 }

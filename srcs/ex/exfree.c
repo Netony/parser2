@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   exfree.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/24 15:39:32 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/27 15:51:50 by seunghy2         ###   ########.fr       */
+/*   Created: 2023/08/27 13:52:43 by seunghy2          #+#    #+#             */
+/*   Updated: 2023/08/27 16:20:57 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_exit(t_exnode *arg, t_env *envlst, int free)
+void	exnodeclose(t_exnode *arg)
 {
-	int	temp;
-	unsigned char	result;
-	char	**command;
+	if (arg->read != 0 && arg->read != 1)
+		close(arg->read);
+	if (arg->write != 0 && arg->write != 1)
+		close(arg->write);
+}
 
-	result = 0;
-	command = arg->command;
-	if (command && command[1])
+void	exlstfree(t_exnode *exlst, int size)
+{
+	int	i;
+
+	i = 0;
+	while (i < size)
 	{
-		temp = ft_atoi(command[1]);
-		result = (unsigned char)temp;
+		twodfree((exlst[i]).command);
+		i++;
 	}
-	if (free)
-	{
-		exlstfree(arg, 1);
-		envlstfree(envlst);
-	}
-	exit(result);
+	free(exlst);
 }

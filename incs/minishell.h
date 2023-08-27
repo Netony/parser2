@@ -6,6 +6,8 @@
 # include "execute_ex.h"
 # include "execute_util.h"
 # include "error.h"
-#include "../libft/incs/libft.h"
+# include "../libft/incs/libft.h"
+
+int	status;
 
 #endif
