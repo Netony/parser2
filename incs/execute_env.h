@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 14:19:28 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/23 14:19:47 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/27 16:33:07 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 
 typedef struct s_env
 {
-	char	*name;
-	char	*value;
+	char			*name;
+	char			*value;
 	struct s_env	*next;
 }	t_env;
 

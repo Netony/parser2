@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 14:19:57 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/27 16:00:14 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/27 16:33:30 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 
 typedef struct s_exnode
 {
-	int	read;
-	int	write;
+	int		read;
+	int		write;
 	char	**command;
 }	t_exnode;
 
@@ -38,6 +38,6 @@ int			ft_echo(char **command);
 int			ft_pwd(void);
 int			ft_exit(t_exnode *arg, t_env *envlst, int free);
 
-char	*get_next_line(int fd);
+char		*get_next_line(int fd);
 
 #endif
