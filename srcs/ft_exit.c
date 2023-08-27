@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 15:39:32 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/27 15:51:50 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/27 16:31:39 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	ft_exit(t_exnode *arg, t_env *envlst, int free)
 {
-	int	temp;
+	int				temp;
 	unsigned char	result;
-	char	**command;
+	char			**command;
 
 	result = 0;
 	command = arg->command;

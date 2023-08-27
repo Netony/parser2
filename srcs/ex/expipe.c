@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:05:07 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/27 16:09:43 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/27 16:27:36 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	expipe(t_exnode *arg, t_cmd *lst, int size, t_env **envlst)
 
 void	piping(t_cmd *lst, int size, t_env **envlst)
 {
-	int	errorcode;
+	int			errorcode;
 	t_exnode	*exlst;
 
 	exlst = (t_exnode *)malloc(sizeof(t_exnode) * size);

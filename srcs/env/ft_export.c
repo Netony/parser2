@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 14:16:03 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/22 19:09:14 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/27 16:31:13 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,17 @@
 
 int	ft_export(char **command, t_env **envlst)
 {
-	int	i;
+	int		i;
 	t_env	*temp;
 
-	i = 1;
-	while (command[i])
+	i = 0;
+	while (command[++i])
 	{
 		if (envadd(envlst, command[i]))
 		{
 			errormsg(MS_MALLOC, 0);
 			return (-1);
 		}
-		i++;
 	}
 	if (i == 1)
 	{
