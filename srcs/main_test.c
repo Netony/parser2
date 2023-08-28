@@ -56,7 +56,6 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	(void)envp;
 	// atexit(leaks);
 	signal(SIGINT, handler);
 	signal(SIGQUIT, SIG_IGN);

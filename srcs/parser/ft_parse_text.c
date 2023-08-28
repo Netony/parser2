@@ -74,35 +74,3 @@ char	*ft_parse_tok(const char *s, int *i, const char *set)
 	*i += len;
 	return (text);
 }
-
-char	*ft_getenv(const char *s)
-{
-	(void)s;
-	return (ft_strdup(""));
-}
-
-char	*ft_parse_env(const char *s, int *i)
-{
-	int		len;
-	char	*temp;
-	char	*env;
-
-	*i += 1;
-	len = ft_toklen(s, *i, "$\"\' <>|");
-	if (len == 0)
-	{
-		if (s[*i] == '$')
-			ft_getenv("$");
-		else if (s[*i] == '\0' || s[*i] == ' ')
-			return (ft_strdup("$"));
-		else
-			return (ft_strdup(""));
-	}
-	*i += len;
-	temp = ft_substr(s, *i, len);
-	if (temp == NULL)
-		return (NULL);
-	env = ft_getenv(temp);
-	free(temp);
-	return (env);
-}

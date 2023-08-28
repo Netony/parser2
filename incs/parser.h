@@ -19,23 +19,19 @@ void	ft_cmddel(void *lst);
 int		ft_error(void);
 
 t_list	*parser(const char *s);
-t_list	*ft_parse_cmd_node(const char *s, int *i);
 t_list	*ft_parse_cmd_list(const char *s, int *i);
+t_list	*ft_parse_cmd_node(const char *s, int *i);
 
 t_list	*ft_parse_redi_list(const char *s, int *i);
 t_list	*ft_parse_redi_node(const char *s, int *i);
-
-char	*ft_parse_path(const char *s, int *i);
 char	*ft_parse_type(const char *s, int *i);
-char	*ft_parse_type_set(const char *s, int *i);
+char	*ft_parse_path(const char *s, int *i);
 
 t_list	*ft_parse_text_list(const char *s, int *i);
 t_list	*ft_parse_text_node(const char *s, int *i);
 
 char	*ft_parse_tok(const char *s, int *i, const char *set);
-char	*ft_parse_env(const char *s, int *i);
 char	*ft_parse_dquote(const char *s, int *i);
-t_list	*ft_parse_dquote_node(const char *s, int *i);
 char	*ft_parse_quote(const char *s, int *i);
 
 char	*ft_lstjoin(t_list *lst);
