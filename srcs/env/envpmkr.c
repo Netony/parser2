@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 14:49:24 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/27 16:31:16 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/28 19:16:38 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,26 @@ int	envsize(t_env *envlst)
 	return (result);
 }
 
+char	*nvmkr(t_env *node)
+{
+	char	*middle;
+	char	*result;
+
+	middle = ft_strjoin(node->name, "=");
+	if (!middle)
+		return (0);
+	result = ft_strjoin(middle, node->value);
+	free(middle);
+	return (result);
+}
+
 char	**envpmkr(t_env *envlst)
 {
 	int		i;
-	char	*middle;
 	char	**result;
 	t_env	*temp;
 
-	i = envsize(envlst);
-	result = (char **)malloc(sizeof(char *) * (i + 1));
+	result = (char **)malloc(sizeof(char *) * (envsize(envlst) + 1));
 	if (!result)
 		return (0);
 	temp = envlst;
@@ -44,9 +55,7 @@ char	**envpmkr(t_env *envlst)
 	{
 		if (temp->value)
 		{
-			middle = ft_strjoin(temp->name, "=");
-			result[i] = ft_strjoin(middle, temp->value);
-			free(middle);
+			result[i] = nvmkr(temp);
 			if (!(result[i]))
 			{
 				twodfree(result);

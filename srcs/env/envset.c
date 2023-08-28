@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 14:15:53 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/28 18:27:18 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/28 18:49:56 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,8 @@ void	envdelete(t_env **envlst, char *name)
 		return ;
 	else if (!(ft_strcmp(temp1->name, name)))
 	{
+		*envlst = temp1->next;
 		envfree(temp1);
-		*envlst = 0;
 		return ;
 	}
 	while (temp1->next && ft_strcmp(temp1->next->name, name))
