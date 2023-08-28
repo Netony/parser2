@@ -1,8 +1,10 @@
+#include <unistd.h>
 #include "test.h"
 #include "parser.h"
 #include "minishell.h"
 #include <readline/history.h>
 #include <readline/readline.h>
+#include <termios.h>
 
 void	leaks(void)
 {
@@ -32,21 +34,37 @@ void	ms_excuter(t_cmd *cmd_array, int cmd_size, t_env **envlst)
 	}
 }
 
+void	handler(int signum)
+{
+	(void)signum;
+	printf("minishell$ \n");
+	rl_on_new_line();
+	rl_replace_line("", 1);
+	rl_redisplay();
+}
+
 int	main(int argc, char **argv, char **envp)
 {
+	struct termios	term;
+	t_env	*envlst;
 	char	*buf;
 	t_list	*cmd_list;
 	int		cmd_size;
 	t_cmd	*cmd_array;
-	int		i;
-	t_env	*envlst;
+	int		ret;
 
-	i = 0;
 	(void)argc;
 	(void)argv;
+	(void)envp;
 	// atexit(leaks);
+	signal(SIGINT, handler);
+	signal(SIGQUIT, SIG_IGN);
+	tcgetattr(STDIN_FILENO, &term);
+	term.c_lflag &= ~(ECHOCTL);
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 	envlst = envlist(envp);
-	while (1)
+	ret = 0;
+	while (ret == 0)
 	{
 		buf = readline("minishell$ ");
 		if (buf)
@@ -59,16 +77,21 @@ int	main(int argc, char **argv, char **envp)
 			if (cmd_array == NULL)
 				continue ;
 			ft_cmddel(cmd_list);
-			ft_print_cmds(cmd_array, cmd_size);
+			//ft_print_cmds(cmd_array, cmd_size);
+			signal(SIGINT, SIG_DFL);
 			ms_excuter(cmd_array, cmd_size, &envlst);
+			signal(SIGINT, handler);
+			add_history(buf);
+			free(buf);
 		}
 		else
-			break ;
-		/*
-		add_history(buf);
-		free(buf);
-		ft_cmdsdel(cmd_array, cmd_size);
-		*/
+		{
+			printf("\033[10C");
+			printf("\033[1A");
+			printf(" exit\n");
+			ret = 1;
+		}
+		//ft_cmdsdel(cmd_array, cmd_size);
 	}
 	return (0);
 }
