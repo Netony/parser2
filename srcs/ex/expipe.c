@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:05:07 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/28 14:42:45 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/28 18:36:53 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,16 +78,22 @@ int	expipe(t_exnode *arg, t_cmd *lst, int size, t_env **envlst)
 	waitpid(pid, &status, 0);
 	return (MS_SUCCESS);
 }
-// bash 에서, (-1)command 후에 (-1)command | echo $? 를 하면 0이 나오는 이유는?
 
 void	piping(t_cmd *lst, int size, t_env **envlst)
 {
 	int			errorcode;
 	t_exnode	*exlst;
+	int			i;
 
 	exlst = (t_exnode *)malloc(sizeof(t_exnode) * size);
 	if (!exlst)
 		errormsg(MS_MALLOC, 0);
+	i = 0;
+	while (i < size)
+	{
+		(exlst[i]).command = (lst[i]).command;
+		i++;
+	}
 	errorcode = expipe(exlst, lst, size, envlst);
 	exlstfree(exlst, size);
 	if (errorcode)

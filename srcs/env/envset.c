@@ -6,11 +6,30 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 14:15:53 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/28 14:40:43 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/28 18:27:18 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	choldpwd(t_env **result)
+{
+	t_env	*oldpwd;
+	int		end;
+
+	oldpwd = envsearch(*result, "OLDPWD");
+	if (oldpwd)
+		freenull(&(oldpwd->value));
+	else
+	{
+		end = envadd(result, "OLDPWD");
+		if (end)
+		{
+			envlstfree(*result);
+			errorend(MS_MALLOC, 0);
+		}
+	}
+}
 
 t_env	*envlist(char **envp)
 {
@@ -37,7 +56,7 @@ t_env	*envlist(char **envp)
 		}
 		temp = &((*temp)->next);
 	}
-	freenull(&((envsearch(result, "OLDPWD"))->value));
+	choldpwd(&result);
 	return (result);
 }
 
