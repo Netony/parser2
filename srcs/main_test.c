@@ -77,7 +77,8 @@ int	main(int argc, char **argv, char **envp)
 			if (cmd_array == NULL)
 				continue ;
 			ft_cmddel(cmd_list);
-			//ft_print_cmds(cmd_array, cmd_size);
+			ft_print_cmds(cmd_array, cmd_size);
+			printf("test\n");
 			signal(SIGINT, SIG_DFL);
 			ms_excuter(cmd_array, cmd_size, &envlst);
 			signal(SIGINT, handler);
