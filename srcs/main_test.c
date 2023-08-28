@@ -33,6 +33,7 @@ void	ms_excuter(t_cmd *cmd_array, int cmd_size, t_env **envlst)
 		exlstfree(onebuilt, 1);
 	}
 }
+// exit 일 때 , cmd_array 할당 해제 추가하기.
 
 void	handler(int signum)
 {
