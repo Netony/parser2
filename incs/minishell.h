@@ -8,6 +8,4 @@
 # include "error.h"
 # include "../libft/incs/libft.h"
 
-int	status;
-
 #endif

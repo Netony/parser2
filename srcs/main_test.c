@@ -11,13 +11,13 @@ void	leaks(void)
 	system("leaks parser");
 }
 
-void	ms_excuter(t_cmd *cmd_array, int cmd_size, t_env **envlst)
+void	ms_excuter(t_cmd *cmd_array, int cmd_size, t_env **envlst, int *status)
 {
 	t_exnode	*onebuilt;
 
 	if (cmd_size != 1 || \
 			!(builtincheck((cmd_array->command)[0])))
-		piping(cmd_array, cmd_size, envlst);
+		piping(cmd_array, cmd_size, envlst, status);
 	else
 	{
 		onebuilt = (t_exnode *)malloc(sizeof(t_exnode));
@@ -29,7 +29,7 @@ void	ms_excuter(t_cmd *cmd_array, int cmd_size, t_env **envlst)
 		exnodeset(onebuilt, *cmd_array, 0);
 		if (!(ft_strcmp((cmd_array->command)[0], "exit")))
 			ft_exit(onebuilt, *envlst, 1);
-		status = exbuiltin(onebuilt, envlst, 0, 1);
+		*status = exbuiltin(onebuilt, envlst, 0, 1);
 		exlstfree(onebuilt, 1);
 	}
 }
@@ -53,6 +53,7 @@ int	main(int argc, char **argv, char **envp)
 	int		cmd_size;
 	t_cmd	*cmd_array;
 	int		ret;
+	int		status;
 
 	(void)argc;
 	(void)argv;
@@ -80,7 +81,7 @@ int	main(int argc, char **argv, char **envp)
 			ft_print_cmds(cmd_array, cmd_size);
 			printf("test\n");
 			signal(SIGINT, SIG_DFL);
-			ms_excuter(cmd_array, cmd_size, &envlst);
+			ms_excuter(cmd_array, cmd_size, &envlst, &status);
 			signal(SIGINT, handler);
 			add_history(buf);
 			free(buf);

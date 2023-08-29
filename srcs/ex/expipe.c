@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:05:07 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/28 18:36:53 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/29 16:34:12 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,21 @@ void	argfree(t_exnode *arg)
 	free(arg);
 }
 
-int	nodepipefork(t_cmd origin, int fd[2], t_exnode *arg, pid_t *pid)
+pid_t	nodepipefork(t_cmd origin, int fd[2], t_exnode *arg, pid_t *pid)
 {
+	pid_t	past;
+
+	past = *pid;
 	if (exnodeset(arg, origin, fd[0]))
-		return (MS_ERRNO);
+	{
+		errormsg(MS_ERRNO, 0);
+		return (past);
+	}
 	if (pipe(fd) == -1)
 	{
 		exnodeclose(arg);
-		return (MS_ERRNO);
+		errormsg(MS_ERRNO, 0);
+		return (past);
 	}
 	*pid = fork();
 	if (*pid == -1)
@@ -45,43 +52,44 @@ int	nodepipefork(t_cmd origin, int fd[2], t_exnode *arg, pid_t *pid)
 		exnodeclose(arg);
 		close(fd[0]);
 		close(fd[1]);
-		return (MS_ERRNO);
+		errormsg(MS_ERRNO, 0);
+		return (past);
 	}
-	return (MS_SUCCESS);
+	return (0);
 }
 
-int	expipe(t_exnode *arg, t_cmd *lst, int size, t_env **envlst)
+pid_t	expipe(t_exnode *arg, t_cmd *lst, int size, t_env **envlst)
 {
 	int			fd[2];
 	pid_t		pid;
 	int			i;
-	int			errorcode;
+	pid_t		expid;
 
 	i = 0;
 	fd[0] = 0;
-	errorcode = nodepipefork(lst[i], fd, &(arg[i]), &pid);
-	if (errorcode)
-		return (errorcode);
+	pid = 0;
+	expid = nodepipefork(lst[i], fd, &(arg[i]), &pid);
+	if (expid)
+		return (expid);
 	while (pid && i < size - 1)
 	{
 		close(fd[1]);
 		exnodeclose(&(arg[i]));
 		i++;
-		errorcode = nodepipefork(lst[i], fd, &(arg[i]), &pid);
-		if (errorcode)
-			return (errorcode);
+		expid = nodepipefork(lst[i], fd, &(arg[i]), &pid);
+		if (expid)
+			return (expid);
 	}
 	close(fd[0]);
 	if (!pid)
 		exreal(&(arg[i]), envlst, size - i - 1, fd[1]);
 	exnodeclose(&(arg[i]));
-	waitpid(pid, &status, 0);
-	return (MS_SUCCESS);
+	return (pid);
 }
 
-void	piping(t_cmd *lst, int size, t_env **envlst)
+void	piping(t_cmd *lst, int size, t_env **envlst, int *status)
 {
-	int			errorcode;
+	pid_t		pid;
 	t_exnode	*exlst;
 	int			i;
 
@@ -94,9 +102,8 @@ void	piping(t_cmd *lst, int size, t_env **envlst)
 		(exlst[i]).command = (lst[i]).command;
 		i++;
 	}
-	errorcode = expipe(exlst, lst, size, envlst);
+	pid = expipe(exlst, lst, size, envlst);
 	exlstfree(exlst, size);
-	if (errorcode)
-		errormsg(errorcode, 0);
+	waitpid(pid, status, 0);
 	waiting();
 }

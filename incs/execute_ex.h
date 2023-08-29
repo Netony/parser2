@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 14:19:57 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/27 16:33:30 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/29 16:36:30 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct s_exnode
 	char	**command;
 }	t_exnode;
 
-void		piping(t_cmd *lst, int size, t_env **envlst);
+void		piping(t_cmd *lst, int size, t_env **envlst, int *status);
 int			exnodeset(t_exnode *arg, t_cmd node, int inpipe);
 void		exreal(t_exnode *arg, t_env **envlst, int noend, int outpipe);
 int			exbuiltin(t_exnode *arg, t_env **envlst, int noend, int outpipe);
