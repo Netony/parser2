@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:05:07 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/29 16:34:12 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/31 14:05:43 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,8 @@ pid_t	expipe(t_exnode *arg, t_cmd *lst, int size, t_env **envlst)
 	return (pid);
 }
 
-void	piping(t_cmd *lst, int size, t_env **envlst, int *status)
+void	piping(t_cmd *lst, int size, t_info *info)
 {
-	pid_t		pid;
 	t_exnode	*exlst;
 	int			i;
 
@@ -102,8 +101,8 @@ void	piping(t_cmd *lst, int size, t_env **envlst, int *status)
 		(exlst[i]).command = (lst[i]).command;
 		i++;
 	}
-	pid = expipe(exlst, lst, size, envlst);
+	info->lastpid = expipe(exlst, lst, size, &(info->envlst));
 	exlstfree(exlst, size);
-	waitpid(pid, status, 0);
+	waitpid(info->lastpid, &(info->status), 0);
 	waiting();
 }

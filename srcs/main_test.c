@@ -11,13 +11,13 @@ void	leaks(void)
 	system("leaks parser");
 }
 
-void	ms_excuter(t_cmd *cmd_array, int cmd_size, t_env **envlst, int *status)
+void	ms_excuter(t_cmd *cmd_array, int cmd_size, t_info *info)
 {
 	t_exnode	*onebuilt;
 
 	if (cmd_size != 1 || \
 			!(builtincheck((cmd_array->command)[0])))
-		piping(cmd_array, cmd_size, envlst, status);
+		piping(cmd_array, cmd_size, info);
 	else
 	{
 		onebuilt = (t_exnode *)malloc(sizeof(t_exnode));
@@ -28,8 +28,8 @@ void	ms_excuter(t_cmd *cmd_array, int cmd_size, t_env **envlst, int *status)
 		}
 		exnodeset(onebuilt, *cmd_array, 0);
 		if (!(ft_strcmp((cmd_array->command)[0], "exit")))
-			ft_exit(onebuilt, *envlst, 1);
-		*status = exbuiltin(onebuilt, envlst, 0, 1);
+			ft_exit(onebuilt, info->envlst, 1);
+		info->status = exbuiltin(onebuilt, &(info->envlst), 0, 1);
 		exlstfree(onebuilt, 1);
 	}
 }
@@ -47,13 +47,12 @@ void	handler(int signum)
 int	main(int argc, char **argv, char **envp)
 {
 	struct termios	term;
-	t_env	*envlst;
+	t_info	info;
 	char	*buf;
 	t_list	*cmd_list;
 	int		cmd_size;
 	t_cmd	*cmd_array;
 	int		ret;
-	int		status;
 
 	(void)argc;
 	(void)argv;
@@ -63,8 +62,9 @@ int	main(int argc, char **argv, char **envp)
 	tcgetattr(STDIN_FILENO, &term);
 	term.c_lflag &= ~(ECHOCTL);
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);
-	envlst = envlist(envp);
+	info.envlst = envlist(envp);
 	ret = 0;
+	info.status = 0;
 	while (ret == 0)
 	{
 		buf = readline("minishell$ ");
@@ -81,7 +81,7 @@ int	main(int argc, char **argv, char **envp)
 			ft_print_cmds(cmd_array, cmd_size);
 			printf("test\n");
 			signal(SIGINT, SIG_DFL);
-			ms_excuter(cmd_array, cmd_size, &envlst, &status);
+			ms_excuter(cmd_array, cmd_size, &info);
 			signal(SIGINT, handler);
 			add_history(buf);
 			free(buf);
