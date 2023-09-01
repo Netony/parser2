@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:05:07 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/01 18:15:57 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/01 18:45:19 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,15 @@ pid_t	nodepipefork(t_cmd origin, int fd[2], t_exnode *arg, pid_t *pid)
 		return (past);
 	}
 	*pid = fork();
-	if (*pid == 0)
+	if (*pid == -1)
+	{
+		exnodeclose(arg);
+		close(fd[0]);
+		close(fd[1]);
+		errormsg(MS_ERRNO, 0);
+		return (past);
+	}
+	else if (*pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
@@ -68,14 +76,6 @@ pid_t	nodepipefork(t_cmd origin, int fd[2], t_exnode *arg, pid_t *pid)
 	{
 		signal(SIGINT, SIG_IGN);
 		signal(SIGQUIT, sigquit_handler);
-	}
-	if (*pid == -1)
-	{
-		exnodeclose(arg);
-		close(fd[0]);
-		close(fd[1]);
-		errormsg(MS_ERRNO, 0);
-		return (past);
 	}
 	return (0);
 }
@@ -89,7 +89,7 @@ pid_t	expipe(t_exnode *arg, t_cmd *lst, int size, t_env **envlst)
 
 	i = 0;
 	fd[0] = 0;
-	pid = 0;
+	pid = -1;
 	expid = nodepipefork(lst[i], fd, &(arg[i]), &pid);
 	if (expid)
 		return (expid);
@@ -125,6 +125,7 @@ void	piping(t_cmd *lst, int size, t_info *info)
 	}
 	info->lastpid = expipe(exlst, lst, size, &(info->envlst));
 	exlstfree(exlst, size);
-	waitpid(info->lastpid, &(info->status), 0);
+	if (info->lastpid > 0)
+		waitpid(info->lastpid, &(info->status), 0);
 	waiting();
 }
