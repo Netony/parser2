@@ -6,11 +6,19 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:05:07 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/31 14:05:43 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/01 18:15:57 by dajeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+void	handler(int signum);
+
+void	sigquit_handler(int sigquit)
+{
+	(void)sigquit;
+	ft_putendl_fd("Quit: 3", 1);
+}
+
 
 void	waiting(void)
 {
@@ -18,7 +26,11 @@ void	waiting(void)
 
 	pid = 1;
 	while (pid != -1)
+	{
+		signal(SIGINT, handler);
+		signal(SIGQUIT, SIG_IGN);
 		pid = waitpid(0, 0, WNOHANG);
+	}
 }
 
 void	argfree(t_exnode *arg)
@@ -47,6 +59,16 @@ pid_t	nodepipefork(t_cmd origin, int fd[2], t_exnode *arg, pid_t *pid)
 		return (past);
 	}
 	*pid = fork();
+	if (*pid == 0)
+	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
+	}
+	else
+	{
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, sigquit_handler);
+	}
 	if (*pid == -1)
 	{
 		exnodeclose(arg);

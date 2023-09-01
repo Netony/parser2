@@ -8,7 +8,7 @@
 
 void	leaks(void)
 {
-	system("leaks parser");
+	system("leaks --list -- parser");
 }
 
 void	ms_excuter(t_cmd *cmd_array, int cmd_size, t_info *info)
@@ -56,7 +56,7 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	// atexit(leaks);
+	atexit(leaks);
 	signal(SIGINT, handler);
 	signal(SIGQUIT, SIG_IGN);
 	tcgetattr(STDIN_FILENO, &term);
@@ -78,11 +78,8 @@ int	main(int argc, char **argv, char **envp)
 			if (cmd_array == NULL)
 				continue ;
 			ft_cmddel(cmd_list);
-			ft_print_cmds(cmd_array, cmd_size);
-			printf("test\n");
-			signal(SIGINT, SIG_DFL);
+			//ft_print_cmds(cmd_array, cmd_size);
 			ms_excuter(cmd_array, cmd_size, &info);
-			signal(SIGINT, handler);
 			add_history(buf);
 			free(buf);
 		}
@@ -92,6 +89,7 @@ int	main(int argc, char **argv, char **envp)
 			printf("\033[1A");
 			printf(" exit\n");
 			ret = 1;
+			envlstfree(info.envlst);
 		}
 		//ft_cmdsdel(cmd_array, cmd_size);
 	}
