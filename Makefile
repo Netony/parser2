@@ -6,7 +6,11 @@
 #    By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/16 09:00:32 by dajeon            #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2023/09/01 19:28:21 by dajeon           ###   ########.fr        #
+=======
+#    Updated: 2023/09/01 19:22:53 by seunghy2         ###   ########.fr        #
+>>>>>>> 04adff8279bd18e20553671d1ad5097cfe574bcc
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +50,29 @@ SOURCES = parser/redi.c \
 DIRS = parser env ex
 
 SOURCES_MANDA = main.c 
+<<<<<<< HEAD
 SOURCES_BONUS = main_test.c
+=======
+SOURCES_BONUS = main_test.c \
+				error.c \
+				ft_cd.c \
+				ft_pwd.c \
+				ft_exit.c \
+				util.c \
+				ft_echo.c \
+				handler.c \
+				env/envset.c \
+				env/ft_env.c \
+				env/ft_unset.c \
+				env/envpmkr.c \
+				env/envutil.c \
+				env/ft_export.c \
+				ex/exfree.c \
+				ex/exbuiltin.c \
+				ex/expipe.c \
+				ex/exnode.c \
+				ex/exreal.c
+>>>>>>> 04adff8279bd18e20553671d1ad5097cfe574bcc
 
 INCLUDES = 
 INCLUDES_MANDA =

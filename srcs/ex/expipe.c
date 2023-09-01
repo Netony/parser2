@@ -6,32 +6,11 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:05:07 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/01 18:45:19 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/01 19:26:28 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-void	handler(int signum);
-
-void	sigquit_handler(int sigquit)
-{
-	(void)sigquit;
-	ft_putendl_fd("Quit: 3", 1);
-}
-
-
-void	waiting(void)
-{
-	pid_t	pid;
-
-	pid = 1;
-	while (pid != -1)
-	{
-		signal(SIGINT, handler);
-		signal(SIGQUIT, SIG_IGN);
-		pid = waitpid(0, 0, WNOHANG);
-	}
-}
 
 void	argfree(t_exnode *arg)
 {
@@ -40,6 +19,20 @@ void	argfree(t_exnode *arg)
 	if (arg->write != 1)
 		close(arg->write);
 	free(arg);
+}
+
+void	pidsig(pid_t pid)
+{
+	if (pid == 0)
+	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
+	}
+	else
+	{
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, sigquit_handler);
+	}
 }
 
 pid_t	nodepipefork(t_cmd origin, int fd[2], t_exnode *arg, pid_t *pid)
@@ -67,16 +60,7 @@ pid_t	nodepipefork(t_cmd origin, int fd[2], t_exnode *arg, pid_t *pid)
 		errormsg(MS_ERRNO, 0);
 		return (past);
 	}
-	else if (*pid == 0)
-	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
-	}
-	else
-	{
-		signal(SIGINT, SIG_IGN);
-		signal(SIGQUIT, sigquit_handler);
-	}
+	pidsig(*pid);
 	return (0);
 }
 
@@ -112,6 +96,7 @@ pid_t	expipe(t_exnode *arg, t_cmd *lst, int size, t_env **envlst)
 void	piping(t_cmd *lst, int size, t_info *info)
 {
 	t_exnode	*exlst;
+	pid_t		pid;
 	int			i;
 
 	exlst = (t_exnode *)malloc(sizeof(t_exnode) * size);
@@ -127,5 +112,11 @@ void	piping(t_cmd *lst, int size, t_info *info)
 	exlstfree(exlst, size);
 	if (info->lastpid > 0)
 		waitpid(info->lastpid, &(info->status), 0);
-	waiting();
+	pid = 1;
+	while (pid != -1)
+	{
+		signal(SIGINT, handler);
+		signal(SIGQUIT, SIG_IGN);
+		pid = waitpid(0, 0, WNOHANG);
+	}
 }

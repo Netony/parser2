@@ -20,9 +20,16 @@ int	main(int argc, char **argv, char **envp)
 	i = 0;
 	(void)argc;
 	(void)argv;
-	atexit(leaks);
-	envlst = envlist(envp);
-	while (i++ < 2)
+	//atexit(leaks);
+	signal(SIGINT, handler);
+	signal(SIGQUIT, SIG_IGN);
+	tcgetattr(STDIN_FILENO, &term);
+	term.c_lflag &= ~(ECHOCTL);
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
+	info.envlst = envlist(envp);
+	ret = 0;
+	info.status = 0;
+	while (ret == 0)
 	{
 		buf = readline("minishell$ ");
 		if (buf)
