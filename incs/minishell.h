@@ -11,9 +11,8 @@
 # include <readline/readline.h>
 # include <termios.h>
 
-int	ft_termexit(t_info *info);
-int	ft_termset(t_info *info, int argc, char **argv, char **envp);
-
+int		ft_termexit(t_info *info);
+int		ft_termset(t_info *info, int argc, char **argv, char **envp);
 void	handler(int signum);
 void	sigquit_handler(int sigquit);
 

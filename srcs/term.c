@@ -1,14 +1,5 @@
 #include "minishell.h"
 
-void	handler(int signum)
-{
-	(void)signum;
-	printf("minishell$ \n");
-	rl_on_new_line();
-	rl_replace_line("", 1);
-	rl_redisplay();
-}
-
 int	ft_termset(t_info *info, int argc, char **argv, char **envp)
 {
 	struct termios	term;
