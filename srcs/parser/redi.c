@@ -20,6 +20,7 @@ void	ft_redidel(void *param)
 	redi = (t_redi *)param;
 	free(redi->type);
 	free(redi->path);
+	free(redi);
 }
 
 t_redi	*ft_redicopy(t_redi *redi)
