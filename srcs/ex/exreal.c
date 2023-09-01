@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:05:17 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/01 19:15:52 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/01 19:17:44 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,4 @@ void	exreal(t_exnode *arg, t_env **envlst, int noend, int outpipe)
 	well = execve(cmdpath, arg->command, envp);
 	if (well == -1)
 		exerror(cmdpath, arg->command, envp, 0);
-		//errorend(MS_ERRNO, 0);
 }

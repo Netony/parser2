@@ -8,4 +8,7 @@
 # include "error.h"
 # include "../libft/incs/libft.h"
 
+void	handler(int signum);
+void	sigquit_handler(int sigquit);
+
 #endif
