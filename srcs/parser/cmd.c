@@ -1,3 +1,4 @@
+void	ft_redilst_del(void *redilst);
 #include "parser.h"
 
 int	ft_cmdsdel(t_cmd *cmds, int size)
@@ -7,8 +8,7 @@ int	ft_cmdsdel(t_cmd *cmds, int size)
 	i = 0;
 	while (i < size)
 	{
-		ft_varsclear(cmds[i].command);
-		ft_lstclear(&(cmds[i].redilst), ft_redidel);
+		ft_redilst_del(cmds[i].redilst);
 		i++;
 	}
 	free(cmds);
