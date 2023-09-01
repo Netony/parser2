@@ -6,11 +6,28 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:05:17 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/27 14:44:42 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/01 19:15:52 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <dirent.h>
+
+void	exerror(char *cmdpath, char **cmd, char **envp, char *msg)
+{
+	DIR	*temp;
+
+	if (!(ft_strchr(cmdpath, '/')))
+		errorend(MS_MANUAL, "command not found\n");
+	temp = opendir(cmdpath);
+	if (!temp)
+	{
+		execve(cmdpath, cmd, envp);
+		errorend(MS_ERRNO, msg);
+	}
+	closedir(temp);
+	errorend(MS_MANUAL, "is a directory\n");
+}
 
 char	**pathset(t_env *envlst)
 {
@@ -90,5 +107,6 @@ void	exreal(t_exnode *arg, t_env **envlst, int noend, int outpipe)
 		errorend(MS_MALLOC, 0);
 	well = execve(cmdpath, arg->command, envp);
 	if (well == -1)
-		errorend(MS_ERRNO, 0);
+		exerror(cmdpath, arg->command, envp, 0);
+		//errorend(MS_ERRNO, 0);
 }

@@ -56,7 +56,7 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	atexit(leaks);
+	//atexit(leaks);
 	signal(SIGINT, handler);
 	signal(SIGQUIT, SIG_IGN);
 	tcgetattr(STDIN_FILENO, &term);
