@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_parse_redi.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/01 19:48:23 by dajeon            #+#    #+#             */
+/*   Updated: 2023/09/01 19:48:23 by dajeon           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parser.h"
 
 static char	*ft_parse_type_set(const char *s, int *i);
@@ -71,7 +83,7 @@ char	*ft_parse_path(const char *s, int *i)
 char	*ft_parse_type(const char *s, int *i)
 {
 	char	*type;
-	
+
 	type = ft_parse_type_set(s, i);
 	if (type == NULL)
 		return (NULL);

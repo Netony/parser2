@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_parse_env.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/01 19:47:49 by dajeon            #+#    #+#             */
+/*   Updated: 2023/09/01 19:48:07 by dajeon           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parser.h"
 
 t_list	*ft_parse_env_list(const char *s)
@@ -79,7 +91,7 @@ char	*ft_parse_env_get(const char *s, int *i)
 			env = ft_getenv("$");
 		else if (s[*i] == '\0' || ft_isin(s[*i], " <|>"))
 			return (ft_strdup("$"));
-		else // (ft_isin(s[*i], "\'\""))
+		else
 			return (ft_strdup(""));
 		*i += 1;
 	}

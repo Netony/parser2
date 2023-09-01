@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_parse_text.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/01 19:48:27 by dajeon            #+#    #+#             */
+/*   Updated: 2023/09/01 19:48:39 by dajeon           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parser.h"
 
 t_list	*ft_parse_text_list(const char *s, int *i)
@@ -26,12 +38,12 @@ t_list	*ft_parse_text_node(const char *s, int *i)
 {
 	t_list	*node;
 	char	*text;
-	
+
 	if (s[*i] == '\'')
 		text = ft_parse_quote(s, i);
 	else if (s[*i] == '\"')
 		text = ft_parse_dquote(s, i);
-	else 
+	else
 		text = ft_parse_tok(s, i, "\'\" <>|");
 	if (text == NULL)
 		return (NULL);

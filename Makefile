@@ -6,7 +6,7 @@
 #    By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/01 19:37:05 by dajeon            #+#    #+#              #
-#    Updated: 2023/09/01 19:39:14 by dajeon           ###   ########.fr        #
+#    Updated: 2023/09/01 19:50:01 by dajeon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SOURCES = parser/redi.c \
 		  parser/ft_error.c \
 		  parser/ft_parse.c \
 		  parser/utils.c \
+		  parser/utils2.c \
 		  parser/test.c \
 		  parser/ft_convert.c \
 		  parser/ft_conv_redi.c \

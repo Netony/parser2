@@ -1,4 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/01 19:48:56 by dajeon            #+#    #+#             */
+/*   Updated: 2023/09/01 19:49:56 by dajeon           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parser.h"
+
 int	ft_max(int a, int b);
 
 int	ft_toklen(const char *s, int start, const char *set)
@@ -23,7 +36,7 @@ int	ft_toklen_zero(const char *s, int start, const char *set)
 	while (s[start + len])
 	{
 		if (ft_isin(s[start + len], set))
-			return (len) ;
+			return (len);
 		len++;
 	}
 	return (-1);
@@ -75,21 +88,4 @@ char	*ft_lstjoin(t_list *lst)
 		lst = lst->next;
 	}
 	return (join);
-}
-/*
-int	ft_strcmp(char *s1, char *s2)
-{
-	int	s1_len;
-	int	s2_len;
-
-	s1_len = ft_strlen(s1);
-	s2_len = ft_strlen(s2);
-	return (ft_strncmp(s1, s2, ft_max(s1_len, s2_len)));
-}*/
-
-int	ft_max(int a, int b)
-{
-	if (a >= b)
-		return (a);
-	return (b);
 }

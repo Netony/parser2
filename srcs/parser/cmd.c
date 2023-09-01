@@ -1,5 +1,18 @@
-void	ft_redilst_del(void *redilst);
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/01 19:42:56 by dajeon            #+#    #+#             */
+/*   Updated: 2023/09/01 19:43:02 by dajeon           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parser.h"
+
+void	ft_redilst_del(void *redilst);
 
 int	ft_cmdsdel(t_cmd *cmds, int size)
 {
