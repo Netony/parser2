@@ -4,6 +4,7 @@
 #include "minishell.h"
 
 void	handler(int signum);
+
 void	ms_excuter(t_cmd *cmd_array, int cmd_size, t_info *info)
 {
 	t_exnode	*onebuilt;
@@ -32,12 +33,12 @@ int	ft_execute(t_info *info, char *buf)
 	t_cmd	*cmd_array;
 	int		cmd_size;
 
-	cmd_list = parser(buf);
+	cmd_list = parser(info, buf);
 	if (cmd_list == NULL)
 		return (0);
 	cmd_size = ft_cmdsize(cmd_list);
 	cmd_array = ft_convert(cmd_list);
-	ft_cmddel(cmd_list);
+	ft_lstclear(&cmd_list, ft_cmddel);
 	if (cmd_array == NULL)
 		return (0);
 	ms_excuter(cmd_array, cmd_size, info);
@@ -50,6 +51,7 @@ int	main(int argc, char **argv, char **envp)
 	t_info	info;
 	char	*buf;
 
+	//atexit(leak);
 	ft_termset(&info, argc, argv, envp);
 	while (1)
 	{

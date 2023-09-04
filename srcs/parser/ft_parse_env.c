@@ -6,103 +6,85 @@
 /*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:47:49 by dajeon            #+#    #+#             */
-/*   Updated: 2023/09/01 19:48:07 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/04 19:16:09 by dajeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-t_list	*ft_parse_env_list(const char *s)
-{
-	t_list	*list;
-	t_list	*node;
-	int		flag;
-	int		i;
+int		env_getkey(char **key, const char *s, int *i);
+char	*env_getval(t_info *info, char *key);
+char	*env_getfrominfo(t_info *info, char *key);
 
-	list = NULL;
-	i = 0;
-	flag = 0;
-	while (s[i])
-	{
-		node = ft_parse_env_node(s, &i, &flag);
-		if (node == NULL)
-		{
-			ft_lstclear(&list, free);
-			return (NULL);
-		}
-		ft_lstadd_back(&list, node);
-	}
-	if (flag == 1)
-	{
-		ft_error();
+char	*ft_parse_env(t_info *info, const char *s, int *i)
+{
+	char	*val;
+	char	*key;
+
+	if (env_getkey(&key, s, i) < 0)
 		return (NULL);
-	}
-	return (list);
+	val = env_getval(info, key);
+	free(key);
+	if (val == NULL)
+		return (NULL);
+	return (val);
 }
 
-t_list	*ft_parse_env_node(const char *s, int *i, int *flag)
-{
-	t_list	*node;
-	char	*text;
-
-	if (s[*i] == '\'')
-		text = ft_skip(i, flag);
-	else if (*flag == 0)
-	{
-		if (s[*i] == '$')
-			text = ft_parse_env_get(s, i);
-		else
-			text = ft_parse_tok(s, i, "\'$");
-	}
-	else
-		text = ft_parse_tok(s, i, "\'");
-	if (text == NULL)
-		return (NULL);
-	node = ft_lstnew(text);
-	if (node == NULL)
-	{
-		free(text);
-		return (NULL);
-	}
-	return (node);
-}
-
-char	*ft_parse_env_skip(int *i, int *flag)
-{
-	if (*flag == 1)
-		*flag = 0;
-	else
-		*flag = 1;
-	*i += 1;
-	return (ft_strdup("\'"));
-}
-
-char	*ft_parse_env_get(const char *s, int *i)
+int	env_getkey(char **key, const char *s, int *i)
 {
 	int		len;
-	char	*temp;
-	char	*env;
 
 	*i += 1;
-	len = ft_toklen(s, *i, "$\"\' <>|");
+	len = ft_toklen(s, *i, "\"\' <|>?!$");
 	if (len == 0)
 	{
-		if (s[*i] == '$')
-			env = ft_getenv("$");
-		else if (s[*i] == '\0' || ft_isin(s[*i], " <|>"))
-			return (ft_strdup("$"));
-		else
-			return (ft_strdup(""));
+		if (ft_isin(s[*i], " <|>"))
+		{
+			*key = NULL;
+			return (0);
+		}
+		else if (ft_isin(s[*i], "\"\'"))
+			*key = ft_substr(s, *i, 0);
+		else if (ft_isin(s[*i], "!?$"))
+			*key = ft_substr(s, *i, 1);
 		*i += 1;
 	}
 	else
 	{
-		temp = ft_substr(s, *i, len);
+		*key = ft_substr(s, *i, len);
 		*i += len;
-		if (temp == NULL)
-			return (NULL);
-		env = ft_getenv(temp);
-		free(temp);
 	}
-	return (env);
+	if (*key == NULL)
+		return (-1);
+	return (0);
+}
+
+char	*env_getval(t_info *info, char *key)
+{
+	if (key == NULL)
+		return (ft_strdup("$"));
+	else if (key[0] == '\0')
+		return (ft_strdup(""));
+	else if (ft_strcmp(key, "$") == 0)
+		return (ft_strdup(""));
+	else if (ft_strcmp(key, "?") == 0)
+		return (ft_itoa(info->status));
+	else if (ft_strcmp(key, "!") == 0)
+		return (ft_itoa(info->lastpid));
+	else
+		return (env_getfrominfo(info, key));
+}
+
+char	*env_getfrominfo(t_info *info, char *key)
+{
+	t_env	*node;
+	
+	if (key == NULL)
+		return (ft_strdup(""));
+	else if (key[0] == '\0')
+		return (ft_strdup(""));
+	node = envsearch(info->envlst, key);
+	if (node == NULL || node->value == NULL)
+		return (ft_strdup(""));
+	return (ft_strdup(node->value));
 }

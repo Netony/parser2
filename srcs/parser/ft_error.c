@@ -6,7 +6,7 @@
 /*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:47:40 by dajeon            #+#    #+#             */
-/*   Updated: 2023/09/01 19:47:40 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/04 18:34:48 by dajeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,45 @@
 
 void	ft_cmd_node_del(void *node);
 void	ft_redilst_del(void *redilst);
+int		ft_error_minishell(void);
 
-int	ft_error(void)
+int	ft_error(char *token)
 {
-	return (ft_putendl_fd("ERROR", 2));
+	int	ret;
+	int	put;
+	
+	put = 0;
+	ret = ft_error_minishell();
+	if (ret < 0)
+		return (-1);
+	put += ret;
+	ret = ft_putstr_fd("syntax error near unexpected token `", 2);
+	if (ret < 0)
+		return (-1);
+	put += ret;
+	ret = ft_putstr_fd(token, 2);
+	if (ret < 0)
+		return (-1);
+	put += ret;
+	ret = ft_putendl_fd("'", 2);
+	if (ret >= 0)
+		return (-1);
+	put += ret;
+	return (put);
 }
 
-void	ft_cmddel(void *lst)
+int	ft_error_minishell(void)
 {
-	t_list	*cmd_list;
+	return (ft_putstr_fd("minishell: ", 2));
+}
 
-	cmd_list = (t_list *)lst;
-	ft_lstclear(&cmd_list, ft_redilst_del);
+void	ft_cmddel(void *cmd)
+{
+	t_list	*redi_list;
+
+	redi_list = (t_list *)(cmd);
+	ft_lstclear(&redi_list, ft_redidel);
+	free(redi_list);
 }
 
 void	ft_redilst_del(void *redilst)

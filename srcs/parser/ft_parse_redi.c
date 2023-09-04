@@ -6,7 +6,7 @@
 /*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:48:23 by dajeon            #+#    #+#             */
-/*   Updated: 2023/09/01 19:48:23 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/04 18:52:20 by dajeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static char	*ft_parse_type_set(const char *s, int *i);
 
-t_list	*ft_parse_redi_list(const char *s, int *i)
+t_list	*ft_parse_redi_list(t_info *info, const char *s, int *i)
 {
 	t_list	*list;
 	t_list	*node;
@@ -25,7 +25,7 @@ t_list	*ft_parse_redi_list(const char *s, int *i)
 		*i += ft_duplen(s, *i, " ");
 		if (s[*i] == '\0' || s[*i] == '|')
 			break ;
-		node = ft_parse_redi_node(s, i);
+		node = ft_parse_redi_node(info, s, i);
 		if (node == NULL)
 		{
 			ft_lstclear(&list, ft_redidel);
@@ -36,7 +36,7 @@ t_list	*ft_parse_redi_list(const char *s, int *i)
 	return (list);
 }
 
-t_list	*ft_parse_redi_node(const char *s, int *i)
+t_list	*ft_parse_redi_node(t_info *info, const char *s, int *i)
 {
 	t_list	*node;
 	t_redi	*redi;
@@ -46,7 +46,7 @@ t_list	*ft_parse_redi_node(const char *s, int *i)
 	type = ft_parse_type(s, i);
 	if (type == NULL)
 		return (NULL);
-	text = ft_parse_path(s, i);
+	text = ft_parse_path(info, s, i);
 	if (text == NULL)
 	{
 		free(type);
@@ -65,12 +65,12 @@ t_list	*ft_parse_redi_node(const char *s, int *i)
 	return (node);
 }
 
-char	*ft_parse_path(const char *s, int *i)
+char	*ft_parse_path(t_info *info, const char *s, int *i)
 {
 	char	*path;
 	t_list	*text_list;
 
-	text_list = ft_parse_text_list(s, i);
+	text_list = ft_parse_text_list(info, s, i);
 	if (text_list == NULL)
 		return (NULL);
 	path = ft_lstjoin(text_list);
@@ -89,8 +89,8 @@ char	*ft_parse_type(const char *s, int *i)
 		return (NULL);
 	if (s[*i] == '\0' || ft_isin(s[*i], "<>|"))
 	{
+		ft_error("newline");
 		free(type);
-		ft_error();
 		return (NULL);
 	}
 	return (type);

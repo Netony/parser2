@@ -6,7 +6,7 @@
 #    By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/01 19:37:05 by dajeon            #+#    #+#              #
-#    Updated: 2023/09/01 19:50:01 by dajeon           ###   ########.fr        #
+#    Updated: 2023/09/04 18:51:28 by dajeon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ BONUS =
 SOURCES = parser/redi.c \
 		  parser/ft_parse_redi.c \
 		  parser/ft_parse_text.c \
+		  parser/ft_parse_env.c \
 		  parser/ft_error.c \
 		  parser/ft_parse.c \
 		  parser/utils.c \
