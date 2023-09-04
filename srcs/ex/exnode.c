@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:04:58 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/27 16:00:33 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/04 17:52:37 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,10 @@ int	exnodeset(t_exnode *arg, t_cmd node, int inpipe)
 	{
 		openclose(arg, (t_redi *)(temp->content));
 		if (arg->read == -1 || arg->write == -1)
+		{
+			errormsg(MS_ERRNO, temp->content->path);
 			return (MS_ERRNO);
+		}
 		temp = temp->next;
 	}
 	arg->command = node.command;
