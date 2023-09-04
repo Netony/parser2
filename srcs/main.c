@@ -28,9 +28,7 @@ void	ms_excuter(t_cmd *cmd_array, int cmd_size, t_info *info)
 				ft_exit(onebuilt, info->envlst, 1);
 			info->status = exbuiltin(onebuilt, &(info->envlst), 0, 1);
 		}
-		printf("i\n");
 		exlstfree(onebuilt, 1);
-		printf("i\n");
 	}
 }
 

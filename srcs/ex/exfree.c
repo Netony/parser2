@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 13:52:43 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/04 19:07:24 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/04 19:38:22 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,8 @@ void	exlstfree(t_exnode *exlst, int size)
 	i = 0;
 	while (i < size)
 	{
-		printf("i: %d\n", i);
 		twodfree((exlst[i]).command);
 		i++;
 	}
-	printf("i: %d\n", i);
 	free(exlst);
 }
