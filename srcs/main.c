@@ -5,6 +5,31 @@
 
 void	handler(int signum);
 
+void	tmpstdinout(t_exnode *onebuilt, t_cmd *cmd_array, t_info *info)
+{
+	int	tmp_std[2];
+
+	if (pipe(tmp_std) == -1)
+	{
+		errormsg(MS_ERRNO, 0);
+		free(onebuilt);
+		return ;
+	}
+	dup2(0, tmp_std[0]);
+	dup2(1, tmp_std[1]);
+	if (exnodeset(onebuilt, *cmd_array, 0))
+		info->status = 1;
+	else
+	{
+		if (!(ft_strcmp((cmd_array->command)[0], "exit")))
+			ft_exit(onebuilt, info->envlst, 1);
+		info->status = exbuiltin(onebuilt, &(info->envlst), 0, 1);
+	}
+	dup2(tmp_std[0], 0);
+	dup2(tmp_std[1], 1);
+	exlstfree(onebuilt, 1);
+}
+
 void	ms_excuter(t_cmd *cmd_array, int cmd_size, t_info *info)
 {
 	t_exnode	*onebuilt;
@@ -20,15 +45,7 @@ void	ms_excuter(t_cmd *cmd_array, int cmd_size, t_info *info)
 			errormsg(MS_MALLOC, 0);
 			return ;
 		}
-		if (exnodeset(onebuilt, *cmd_array, 0))
-			info->status = 1;
-		else
-		{
-			if (!(ft_strcmp((cmd_array->command)[0], "exit")))
-				ft_exit(onebuilt, info->envlst, 1);
-			info->status = exbuiltin(onebuilt, &(info->envlst), 0, 1);
-		}
-		exlstfree(onebuilt, 1);
+		tmpstdinout(onebuilt, cmd_array, info);
 	}
 }
 
