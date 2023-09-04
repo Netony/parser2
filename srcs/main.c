@@ -33,6 +33,7 @@ void	ms_excuter(t_cmd *cmd_array, int cmd_size, t_info *info)
 		printf("i\n");
 	}
 }
+
 int	ft_execute(t_info *info, char *buf)
 {
 	t_list	*cmd_list;
@@ -57,7 +58,6 @@ int	main(int argc, char **argv, char **envp)
 	t_info	info;
 	char	*buf;
 
-	//atexit(leak);
 	ft_termset(&info, argc, argv, envp);
 	while (1)
 	{
