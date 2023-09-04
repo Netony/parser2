@@ -6,11 +6,11 @@
 #    By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/01 19:37:05 by dajeon            #+#    #+#              #
-#    Updated: 2023/09/04 19:53:54 by dajeon           ###   ########.fr        #
+#    Updated: 2023/09/04 20:08:57 by seunghy2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = parser
+NAME = minishell
 BONUS = 
 
 SOURCES = parser/redi.c \
