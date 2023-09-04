@@ -20,11 +20,17 @@ void	ms_excuter(t_cmd *cmd_array, int cmd_size, t_info *info)
 			errormsg(MS_MALLOC, 0);
 			return ;
 		}
-		exnodeset(onebuilt, *cmd_array, 0);
-		if (!(ft_strcmp((cmd_array->command)[0], "exit")))
-			ft_exit(onebuilt, info->envlst, 1);
-		info->status = exbuiltin(onebuilt, &(info->envlst), 0, 1);
+		if (exnodeset(onebuilt, *cmd_array, 0))
+			info->status = 1;
+		else
+		{
+			if (!(ft_strcmp((cmd_array->command)[0], "exit")))
+				ft_exit(onebuilt, info->envlst, 1);
+			info->status = exbuiltin(onebuilt, &(info->envlst), 0, 1);
+		}
+		printf("i\n");
 		exlstfree(onebuilt, 1);
+		printf("i\n");
 	}
 }
 int	ft_execute(t_info *info, char *buf)

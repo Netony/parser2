@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:05:07 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/01 19:26:28 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/04 17:50:40 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,7 @@ pid_t	nodepipefork(t_cmd origin, int fd[2], t_exnode *arg, pid_t *pid)
 	pid_t	past;
 
 	past = *pid;
-	if (exnodeset(arg, origin, fd[0]))
-	{
-		errormsg(MS_ERRNO, 0);
-		return (past);
-	}
+	exnodeset(arg, origin, fd[0]);
 	if (pipe(fd) == -1)
 	{
 		exnodeclose(arg);

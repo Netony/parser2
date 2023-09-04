@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:03:53 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/27 14:34:57 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/04 19:10:40 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	twodfree(char **twod)
 	i = 0;
 	while (twod[i])
 	{
+		printf("twod[i]: %d\n", i);
 		free(twod[i]);
 		i++;
 	}

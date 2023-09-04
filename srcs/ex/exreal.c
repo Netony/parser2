@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:05:17 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/01 19:17:44 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/04 17:57:40 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ void	exreal(t_exnode *arg, t_env **envlst, int noend, int outpipe)
 	char	*cmdpath;
 	char	**envp;
 
+	if (arg->read == -1 || arg->write == -1)
+		exit (1);
 	if (builtincheck((arg->command)[0]))
 		exit(exbuiltin(arg, envlst, noend, outpipe));
 	cmdpath = pathmkr((arg->command)[0], *envlst);
