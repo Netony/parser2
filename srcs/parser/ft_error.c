@@ -6,7 +6,7 @@
 /*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:47:40 by dajeon            #+#    #+#             */
-/*   Updated: 2023/09/04 18:34:48 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/04 19:52:22 by dajeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_error(char *token)
 {
 	int	ret;
 	int	put;
-	
+
 	put = 0;
 	ret = ft_error_minishell();
 	if (ret < 0)
