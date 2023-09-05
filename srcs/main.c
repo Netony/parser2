@@ -6,7 +6,7 @@
 /*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 19:53:49 by dajeon            #+#    #+#             */
-/*   Updated: 2023/09/04 19:55:15 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/05 16:31:45 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	tmpstdinout(t_exnode *onebuilt, t_cmd *cmd_array, t_info *info)
 	}
 	dup2(tmp_std[0], 0);
 	dup2(tmp_std[1], 1);
+	exnodeclose(onebuilt);
 	exlstfree(onebuilt, 1);
 }
 
