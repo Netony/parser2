@@ -6,27 +6,33 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:05:17 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/04 17:57:40 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/05 15:19:38 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <dirent.h>
 
-void	exerror(char *cmdpath, char **cmd, char **envp, char *msg)
+void	exerror(char *cmdpath, char **cmd, char **envp)
 {
 	DIR	*temp;
 
 	if (!(ft_strchr(cmdpath, '/')))
-		errorend(MS_MANUAL, "command not found\n");
+	{
+		errormsg(MS_MANUAL, "minishell: ");
+		errormsg(MS_MANUAL, cmdpath);
+		errorend(MS_MANUAL, ": command not found\n");
+	}
 	temp = opendir(cmdpath);
 	if (!temp)
 	{
 		execve(cmdpath, cmd, envp);
-		errorend(MS_ERRNO, msg);
+		errorend(MS_ERRNO, cmdpath);
 	}
 	closedir(temp);
-	errorend(MS_MANUAL, "is a directory\n");
+	errormsg(MS_MANUAL, "minishell: ");
+	errormsg(MS_MANUAL, cmdpath);
+	errorend(MS_MANUAL, ": is a directory\n");
 }
 
 char	**pathset(t_env *envlst)
@@ -70,6 +76,8 @@ char	*pathmkr(char *origin, t_env *envlst)
 	result = ft_strdup(origin);
 	if (!result)
 		return (0);
+	if (!(ft_strlen(result)))
+		return (result);
 	i = -1;
 	while (path[++i] && access(result, F_OK))
 	{
@@ -82,8 +90,7 @@ char	*pathmkr(char *origin, t_env *envlst)
 	if (!(access(result, F_OK)))
 		return (result);
 	free(result);
-	result = ft_strdup(origin);
-	return (result);
+	return (ft_strdup(origin));
 }
 
 void	exreal(t_exnode *arg, t_env **envlst, int noend, int outpipe)
@@ -109,5 +116,5 @@ void	exreal(t_exnode *arg, t_env **envlst, int noend, int outpipe)
 		errorend(MS_MALLOC, 0);
 	well = execve(cmdpath, arg->command, envp);
 	if (well == -1)
-		exerror(cmdpath, arg->command, envp, 0);
+		exerror(cmdpath, arg->command, envp);
 }

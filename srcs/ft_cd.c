@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 13:14:30 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/04 19:51:32 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/05 15:15:10 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ int	ft_cd(char **command, t_env *envlst)
 	}
 	if (result == -1)
 	{
-		errormsg(MS_ERRNO, 0);
+		if (command[1])
+			errormsg(MS_ERRNO, command[1]);
+		else
+			errormsg(MS_ERRNO, 0);
 		return (-1);
 	}
 	result = pwdchange(envlst);
