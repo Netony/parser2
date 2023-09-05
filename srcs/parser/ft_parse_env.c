@@ -6,7 +6,7 @@
 /*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:47:49 by dajeon            #+#    #+#             */
-/*   Updated: 2023/09/04 19:52:28 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/05 19:16:25 by dajeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	env_getkey(char **key, const char *s, int *i)
 	len = ft_toklen(s, *i, "\"\' <|>?!$");
 	if (len == 0)
 	{
-		if (ft_isin(s[*i], " <|>"))
+		if (s[*i] == '\0' || ft_isin(s[*i], " <|>"))
 		{
 			*key = NULL;
 			return (0);
