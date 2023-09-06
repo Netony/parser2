@@ -6,7 +6,7 @@
 /*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 19:53:49 by dajeon            #+#    #+#             */
-/*   Updated: 2023/09/06 11:11:14 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/06 20:28:36 by dajeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ int	main(int argc, char **argv, char **envp)
 		if (buf)
 		{
 			ft_execute(&info, buf);
-			add_history(buf);
+			if (ft_strcmp(buf, "") != 0)
+				add_history(buf);
 			free(buf);
 		}
 		else
