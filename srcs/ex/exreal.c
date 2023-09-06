@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:05:17 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/05 15:19:38 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/06 10:58:15 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,18 @@ void	exerror(char *cmdpath, char **cmd, char **envp)
 	{
 		errormsg(MS_MANUAL, "minishell: ");
 		errormsg(MS_MANUAL, cmdpath);
-		errorend(MS_MANUAL, ": command not found\n");
+		errorend(MS_MANUAL, ": command not found\n", 127);
 	}
 	temp = opendir(cmdpath);
 	if (!temp)
 	{
 		execve(cmdpath, cmd, envp);
-		errorend(MS_ERRNO, cmdpath);
+		errorend(MS_ERRNO, cmdpath, 126);
 	}
 	closedir(temp);
 	errormsg(MS_MANUAL, "minishell: ");
 	errormsg(MS_MANUAL, cmdpath);
-	errorend(MS_MANUAL, ": is a directory\n");
+	errorend(MS_MANUAL, ": is a directory\n", 126);
 }
 
 char	**pathset(t_env *envlst)
@@ -105,7 +105,7 @@ void	exreal(t_exnode *arg, t_env **envlst, int noend, int outpipe)
 		exit(exbuiltin(arg, envlst, noend, outpipe));
 	cmdpath = pathmkr((arg->command)[0], *envlst);
 	if (!cmdpath)
-		errorend(MS_MALLOC, 0);
+		errorend(MS_MALLOC, 0, 1);
 	dup2(arg->read, 0);
 	if (arg->write != 1)
 		dup2(arg->write, 1);
@@ -113,7 +113,7 @@ void	exreal(t_exnode *arg, t_env **envlst, int noend, int outpipe)
 		dup2(outpipe, 1);
 	envp = envpmkr(*envlst);
 	if (!envp)
-		errorend(MS_MALLOC, 0);
+		errorend(MS_MALLOC, 0, 1);
 	well = execve(cmdpath, arg->command, envp);
 	if (well == -1)
 		exerror(cmdpath, arg->command, envp);

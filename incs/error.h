@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:11:43 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/22 18:59:41 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/06 10:56:01 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@
 # define MS_PAST 555
 
 void	errormsg(int errorcode, char *msg);
-void	errorend(int errorcode, char *msg);
+void	errorend(int errorcode, char *msg, int exitcode);
 
 #endif

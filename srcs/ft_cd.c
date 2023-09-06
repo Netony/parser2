@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 13:14:30 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/05 15:15:10 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/06 11:00:18 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	pwdchange(t_env *envlst)
 
 	present = getcwd(NULL, 0);
 	if (!present)
-		return (-1);
+		return (1);
 	oldpwd = envsearch(envlst, "OLDPWD");
 	pwd = envsearch(envlst, "PWD");
 	free(oldpwd->value);

@@ -6,7 +6,7 @@
 /*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:47:49 by dajeon            #+#    #+#             */
-/*   Updated: 2023/09/05 19:16:25 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/06 10:46:48 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	*env_getval(t_info *info, char *key)
 	else if (ft_strcmp(key, "$") == 0)
 		return (ft_strdup(""));
 	else if (ft_strcmp(key, "?") == 0)
-		return (ft_itoa(info->status));
+		return (ft_itoa((unsigned char )(info->status >> 8)));
 	else if (ft_strcmp(key, "!") == 0)
 		return (ft_itoa(info->lastpid));
 	else
