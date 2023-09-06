@@ -6,7 +6,7 @@
 #    By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/01 19:37:05 by dajeon            #+#    #+#              #
-#    Updated: 2023/09/04 20:08:57 by seunghy2         ###   ########.fr        #
+#    Updated: 2023/09/06 11:13:11 by seunghy2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,6 @@ SOURCES = parser/redi.c \
 		  parser/ft_parse.c \
 		  parser/utils.c \
 		  parser/utils2.c \
-		  parser/test.c \
 		  parser/ft_convert.c \
 		  parser/ft_conv_redi.c \
 		  parser/vars.c \
@@ -50,9 +49,16 @@ SOURCES = parser/redi.c \
 DIRS = parser env ex
 
 SOURCES_MANDA = main.c 
-SOURCES_BONUS = main_test.c
+SOURCES_BONUS =
 
-INCLUDES = 
+INCLUDES = error.h \
+		   execute_env.h \
+		   execute_ex.h \
+		   execute_util.h \
+		   minishell.h \
+		   parser.h \
+		   redi.h
+
 INCLUDES_MANDA =
 INCLUDES_BONUS =
 

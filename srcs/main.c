@@ -6,13 +6,10 @@
 /*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 19:53:49 by dajeon            #+#    #+#             */
-/*   Updated: 2023/09/06 11:05:57 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/06 11:11:14 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include "test.h"
-#include "parser.h"
 #include "minishell.h"
 
 void	handler(int signum);
