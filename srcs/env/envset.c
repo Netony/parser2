@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 14:15:53 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/28 18:49:56 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/06 11:09:55 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	choldpwd(t_env **result)
 		if (end)
 		{
 			envlstfree(*result);
-			errorend(MS_MALLOC, 0);
+			errorend(MS_MALLOC, 0, 1);
 		}
 	}
 }
@@ -45,14 +45,14 @@ t_env	*envlist(char **envp)
 		if (!(*temp))
 		{
 			envlstfree(result);
-			errorend(MS_MALLOC, 0);
+			errorend(MS_MALLOC, 0, 1);
 		}
 		envseparate(envp[i], &((*temp)->name), &((*temp)->value));
 		(*temp)->next = 0;
 		if (!((*temp)->name))
 		{
 			envlstfree(result);
-			errorend(MS_MALLOC, 0);
+			errorend(MS_MALLOC, 0, 1);
 		}
 		temp = &((*temp)->next);
 	}
