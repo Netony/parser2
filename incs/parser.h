@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/06 11:07:02 by dajeon            #+#    #+#             */
+/*   Updated: 2023/09/06 11:07:30 by dajeon           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PARSER_H
 # define PARSER_H
 
-#include <stdio.h>
-#include "../libft/incs/libft.h"
-#include "redi.h"
-#include "execute_env.h"
+# include <stdio.h>
+# include "../libft/incs/libft.h"
+# include "redi.h"
+# include "execute_env.h"
 
 typedef struct s_cmd
 {
