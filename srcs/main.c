@@ -6,7 +6,7 @@
 /*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 19:53:49 by dajeon            #+#    #+#             */
-/*   Updated: 2023/09/06 20:28:36 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/06 20:38:07 by dajeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,11 @@ int	main(int argc, char **argv, char **envp)
 	t_info	info;
 	char	*buf;
 
-	ft_termset(&info, argc, argv, envp);
+	(void)argv;
+	if (argc != 1)
+		return (1);
+	ft_terminit(&info, envp);
+	ft_termset();
 	while (1)
 	{
 		buf = readline("minishell$ ");

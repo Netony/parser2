@@ -6,25 +6,40 @@
 /*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:50:34 by dajeon            #+#    #+#             */
-/*   Updated: 2023/09/01 19:50:35 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/06 21:07:47 by dajeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_termset(t_info *info, int argc, char **argv, char **envp)
+int	ft_terminit(t_info *info, char **envp)
+{
+	info->envlst = envlist(envp);
+	info->status = 0;
+	return (0);
+}
+
+int	ft_termset(void)
 {
 	struct termios	term;
 
-	(void)argc;
-	(void)argv;
 	signal(SIGINT, handler);
 	signal(SIGQUIT, SIG_IGN);
 	tcgetattr(STDIN_FILENO, &term);
 	term.c_lflag &= ~(ECHOCTL);
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);
-	info->envlst = envlist(envp);
-	info->status = 0;
+	return (0);
+}
+
+int	ft_termunset(void)
+{
+	struct termios	term;
+
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+	tcgetattr(STDIN_FILENO, &term);
+	term.c_lflag |= ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 	return (0);
 }
 

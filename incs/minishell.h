@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 11:08:09 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/06 11:08:10 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/06 20:36:46 by dajeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,14 @@
 # include <readline/readline.h>
 # include <termios.h>
 
+int		ft_terminit(t_info *info, char **envp);
 int		ft_termexit(t_info *info);
-int		ft_termset(t_info *info, int argc, char **argv, char **envp);
+
+int		ft_termset(void);
+int		ft_termunset(void);
+
+int		ft_infoinit(t_info *info, char **envp);
+
 void	handler(int signum);
 void	sigquit_handler(int sigquit);
 
