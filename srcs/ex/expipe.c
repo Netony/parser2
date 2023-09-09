@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:05:07 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/06 21:07:37 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/09 19:34:55 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ pid_t	nodepipefork(t_cmd origin, int fd[2], t_exnode *arg, pid_t *pid)
 	pid_t	past;
 
 	past = *pid;
-	exnodeset(arg, origin, fd[0]);
+	arg->redilst = origin.redilst;
+	arg->read = fd[0];
+	arg->write = 1;
 	if (pipe(fd) == -1)
 	{
 		exnodeclose(arg);
@@ -92,22 +94,28 @@ pid_t	expipe(t_exnode *arg, t_cmd *lst, int size, t_env **envlst)
 void	piping(t_cmd *lst, int size, t_info *info)
 {
 	t_exnode	*exlst;
+	char		*tmpfilepath;
 	pid_t		pid;
 	int			i;
 
 	exlst = (t_exnode *)malloc(sizeof(t_exnode) * size);
-	if (!exlst)
+	tmpfilepath = nonexitpath();
+	if (!exlst || !tmpfilepath)
 		errormsg(MS_MALLOC, 0);
 	i = 0;
 	while (i < size)
 	{
 		(exlst[i]).command = (lst[i]).command;
+		(exlst[i]).tmpfilepath = tmpfilepath;
 		i++;
 	}
-	info->lastpid = expipe(exlst, lst, size, &(info->envlst));
-	exlstfree(exlst, size);
-	if (info->lastpid > 0)
+	if (exlst && tmpfilepath)
+		info->lastpid = expipe(exlst, lst, size, &(info->envlst));
+	if (exlst && tmpfilepath && info->lastpid > 0)
 		waitpid(info->lastpid, &(info->status), 0);
+	exlstfree(exlst, size);
+	unlink(tmpfilepath);
+	free(tmpfilepath);
 	pid = 1;
 	while (pid != -1)
 	{

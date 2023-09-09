@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:04:58 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/04 19:37:04 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/09 19:33:23 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int	notendline(char *line, char *endline)
 	size_t	newlinepoint;
 
 	newlinepoint = ft_strlen(endline);
+	if (!line)
+		return (0);
 	if (ft_strncmp(line, endline, newlinepoint))
 		return (1);
 	else if (line[newlinepoint] != '\n')
@@ -53,14 +55,14 @@ int	notendline(char *line, char *endline)
 	return (0);
 }
 
-int	tmpfilefd(char *endline)
+int	tmpfilefd(char *filepath, char *endline)
 {
 	int		fd;
 	char	*line;
-	char	*filepath;
 
-	filepath = nonexitpath();
 	fd = open(filepath, O_WRONLY | O_CREAT | O_EXCL, 0644);
+	while (fd == -1)
+		fd = open(filepath, O_WRONLY | O_CREAT | O_EXCL, 0644);
 	write(1, "> ", 2);
 	line = get_next_line(0);
 	while (notendline(line, endline))
@@ -74,7 +76,6 @@ int	tmpfilefd(char *endline)
 	close(fd);
 	fd = open(filepath, O_RDONLY);
 	unlink(filepath);
-	free(filepath);
 	return (fd);
 }
 
@@ -87,7 +88,7 @@ void	openclose(t_exnode *result, t_redi *content)
 	if (++flag && !(ft_strcmp(content->type, "infile")))
 		fd = open(content->path, O_RDONLY);
 	else if (++flag && !(ft_strcmp(content->type, "here_doc")))
-		fd = tmpfilefd(content->path);
+		fd = tmpfilefd(result->tmpfilepath, content->path);
 	else if (++flag && !(ft_strcmp(content->type, "outfile")))
 		fd = open(content->path, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	else if (++flag && !(ft_strcmp(content->type, "append")))
@@ -106,14 +107,11 @@ void	openclose(t_exnode *result, t_redi *content)
 	}
 }
 
-int	exnodeset(t_exnode *arg, t_cmd node, int inpipe)
+int	exnodeset(t_exnode *arg)
 {
 	t_list		*temp;
 
-	arg->read = inpipe;
-	arg->write = 1;
-	temp = node.redilst;
-	arg->command = node.command;
+	temp = arg->redilst;
 	while (temp)
 	{
 		openclose(arg, (t_redi *)(temp->content));

@@ -6,7 +6,7 @@
 /*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 19:53:49 by dajeon            #+#    #+#             */
-/*   Updated: 2023/09/06 20:38:07 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/09 19:17:07 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ void	tmpstdinout(t_exnode *onebuilt, t_cmd *cmd_array, t_info *info)
 	}
 	dup2(0, tmp_std[0]);
 	dup2(1, tmp_std[1]);
-	if (exnodeset(onebuilt, *cmd_array, 0))
+	onebuilt->read = 0;
+	onebuilt->write = 1;
+	onebuilt->redilst = cmd_array->redilst;
+	if (exnodeset(onebuilt))
 		info->status = 1;
 	else
 	{
@@ -55,7 +58,15 @@ void	ms_excuter(t_cmd *cmd_array, int cmd_size, t_info *info)
 			errormsg(MS_MALLOC, 0);
 			return ;
 		}
+		onebuilt->command = cmd_array->command;
+		onebuilt->tmpfilepath = nonexitpath();
+		if (!(onebuilt->tmpfilepath))
+		{
+			errormsg(MS_MALLOC, 0);
+			return ;
+		}
 		tmpstdinout(onebuilt, cmd_array, info);
+		free(onebuilt->tmpfilepath);
 	}
 }
 
