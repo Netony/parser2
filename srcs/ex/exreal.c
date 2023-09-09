@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:05:17 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/06 10:58:15 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/09 13:19:03 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,29 @@ void	exerror(char *cmdpath, char **cmd, char **envp)
 	errorend(MS_MANUAL, ": is a directory\n", 126);
 }
 
+char	**pathsplit(t_env *envlst)
+{
+	t_env	*pathnode;
+	char	**result;
+
+	pathnode = envsearch(envlst, "PATH");
+	if (!pathnode)
+	{
+		result = (char **)malloc(sizeof(char *));
+		*result = NULL;
+	}
+	else
+		result = ft_split(pathnode->value, ':');
+	return (result);
+}
+
 char	**pathset(t_env *envlst)
 {
 	char	**result;
 	char	*temp;
 	int		i;
-	t_env	*pathnode;
 
-	pathnode = envlst;
-	while (ft_strcmp(pathnode->name, "PATH"))
-		pathnode = pathnode->next;
-	result = ft_split(pathnode->value, ':');
+	result = pathsplit(envlst);
 	if (!result)
 		return (0);
 	i = -1;

@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:03:21 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/04 19:45:32 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/09 13:22:30 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_pwd(void)
 	if (!pwd)
 	{
 		errormsg(MS_ERRNO, 0);
-		return (-1);
+		return (1);
 	}
 	printf("%s\n", pwd);
 	free(pwd);
