@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 14:16:03 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/09 14:33:42 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/09 14:38:16 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,18 +100,17 @@ int	ft_export(char **command, t_env **envlst)
 			return (1);
 		}
 	}
-	if (i == 1)
+	if (i > 1)
+		return (0);
+	expo = exposort(*envlst);
+	if (!expo)
 	{
-		expo = exposort(*envlst);
-		if (!expo)
-		{
-			errormsg(MS_MALLOC, 0);
-			return (1);
-		}
-		i = -1;
-		while (expo[++i])
-			printf("%s\n", expo[i]);
-		twodfree(expo);
+		errormsg(MS_MALLOC, 0);
+		return (1);
 	}
+	i = -1;
+	while (expo[++i])
+		printf("%s\n", expo[i]);
+	twodfree(expo);
 	return (0);
 }
