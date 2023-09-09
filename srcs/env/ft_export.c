@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 14:16:03 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/09 14:28:15 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/09 14:33:42 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,12 @@ char	**exposort(t_env *envlst)
 
 	size = envsize(envlst);
 	result = expomkr(envlst);
-	if (!temp)
+	if (!result)
 		return (NULL);
 	while (--size)
 	{
 		i = 0;
-		while (i < size - 1)
+		while (i < size)
 		{
 			if (ft_strcmp(result[i], result[i + 1]) > 0)
 			{
@@ -102,7 +102,7 @@ int	ft_export(char **command, t_env **envlst)
 	}
 	if (i == 1)
 	{
-		expo = exposort(envlst);
+		expo = exposort(*envlst);
 		if (!expo)
 		{
 			errormsg(MS_MALLOC, 0);
