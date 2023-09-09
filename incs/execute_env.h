@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 14:19:28 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/06 10:23:33 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/09 14:03:50 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ t_env	*envsearch(t_env *envlst, char *name);
 void	envfree(t_env *node);
 void	envlstfree(t_env *envlst);
 char	**envpmkr(t_env *envlst);
+int		envsize(t_env *envlst);
 
 int		ft_env(t_env *envlst);
 int		ft_export(char **command, t_env **envlst);

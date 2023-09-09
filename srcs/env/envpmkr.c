@@ -6,26 +6,11 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 14:49:24 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/28 19:16:38 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/09 13:53:32 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	envsize(t_env *envlst)
-{
-	int		result;
-	t_env	*temp;
-
-	result = 0;
-	temp = envlst;
-	while (temp)
-	{
-		temp = temp->next;
-		result++;
-	}
-	return (result);
-}
 
 char	*nvmkr(t_env *node)
 {

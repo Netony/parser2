@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 14:15:37 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/04 19:16:05 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/09 13:53:18 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,21 @@ t_env	*envsearch(t_env *envlst, char *name)
 	while (temp && ft_strcmp(temp->name, name))
 		temp = temp->next;
 	return (temp);
+}
+
+int	envsize(t_env *envlst)
+{
+	int		result;
+	t_env	*temp;
+
+	result = 0;
+	temp = envlst;
+	while (temp)
+	{
+		temp = temp->next;
+		result++;
+	}
+	return (result);
 }
 
 void	envfree(t_env *node)
