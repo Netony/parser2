@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:05:07 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/06 21:07:37 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/09 18:08:13 by dajeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,16 @@ void	argfree(t_exnode *arg)
 void	pidsig(pid_t pid)
 {
 	if (pid == 0)
+		ft_termunset();
+	/*
 	{
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
 	}
+	*/
 	else
 	{
-		signal(SIGINT, SIG_IGN);
+		signal(SIGINT, sigint_handler);
 		signal(SIGQUIT, sigquit_handler);
 	}
 }
@@ -111,8 +114,11 @@ void	piping(t_cmd *lst, int size, t_info *info)
 	pid = 1;
 	while (pid != -1)
 	{
-		signal(SIGINT, handler);
-		signal(SIGQUIT, SIG_IGN);
 		pid = waitpid(0, 0, WNOHANG);
 	}
+	ft_termset();
+	/*
+	signal(SIGINT, main_sigint_handler);
+	signal(SIGQUIT, SIG_IGN);
+	*/
 }
